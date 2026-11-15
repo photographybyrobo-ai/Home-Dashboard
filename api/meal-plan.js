@@ -1,10 +1,10 @@
 const {isAuthorized,send}=require('./_auth');
 const base='https://wxboatjwmqamcidxhhsl.supabase.co/rest/v1';
-async function query(path){const key=process.env.SUPABASE_SERVICE_ROLE_KEY;const r=await fetch(base+path,{headers:{apikey:key,Authorization:'Bearer '+key,Accept:'application/json'},signal:AbortSignal.timeout(9000)});if(!r.ok)throw new Error('Meal Alchemy query failed: '+r.status);return r.json();}
+async function query(path){const key=(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.meal_alchemy_secret_dasboard);const r=await fetch(base+path,{headers:{apikey:key,Authorization:'Bearer '+key,Accept:'application/json'},signal:AbortSignal.timeout(9000)});if(!r.ok)throw new Error('Meal Alchemy query failed: '+r.status);return r.json();}
 module.exports=async function(req,res){
 if(req.method!=='GET')return send(res,405,{error:'Method not allowed'});
 if(!isAuthorized(req))return send(res,401,{error:'Sign in required'});
-if(!process.env.SUPABASE_SERVICE_ROLE_KEY||!process.env.MEALALCHEMY_HOUSEHOLD_ID)return send(res,503,{error:'Meal Alchemy connection is not configured'});
+if(!(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.meal_alchemy_secret_dasboard)||!process.env.MEALALCHEMY_HOUSEHOLD_ID)return send(res,503,{error:'Meal Alchemy connection is not configured'});
 try{
 const hid=encodeURIComponent(process.env.MEALALCHEMY_HOUSEHOLD_ID);
 const rows=await query('/household_recipe_data?household_id=eq.'+hid+'&select=data,updated_at&limit=1');
