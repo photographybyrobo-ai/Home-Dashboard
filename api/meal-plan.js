@@ -1,6 +1,6 @@
 const {isAuthorized,send}=require('./_auth');
 const base='https://wxboatjwmqamcidxhhsl.supabase.co/rest/v1';
-async function query(path){const key=(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.meal_alchemy_secret_dasboard);const r=await fetch(base+path,{headers:{apikey:key,...(key.startsWith('sb_secret_')?{}:{Authorization:'Bearer '+key}),Accept:'application/json'},signal:AbortSignal.timeout(9000)});if(!r.ok)throw new Error('Meal Alchemy query failed: '+r.status);return r.json();}
+async function query(path){const key=(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.meal_alchemy_secret_dasboard);const r=await fetch(base+path,{headers:{apikey:key,...(key.startsWith('sb_secret_')?{}:{Authorization:'Bearer '+key}),Accept:'application/json'},signal:AbortSignal.timeout(9000)});if(!r.ok){const body=await r.text();let parsed={};try{parsed=JSON.parse(body)}catch{};console.error('Supabase response',{status:r.status,code:parsed.code||parsed.error_code||null,message:String(parsed.message||parsed.msg||parsed.error||'').slice(0,160),keyType:key.startsWith('sb_secret_')?'secret':key.startsWith('eyJ')?'legacy-jwt':'unrecognized',keyLength:key.length});throw new Error('Meal Alchemy query failed: '+r.status)}return r.json();}
 module.exports=async function(req,res){
 if(req.method!=='GET')return send(res,405,{error:'Method not allowed'});
 if(!isAuthorized(req))return send(res,401,{error:'Sign in required'});
