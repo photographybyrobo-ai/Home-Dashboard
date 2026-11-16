@@ -32,3 +32,42 @@ body{background:#080f12;color:var(--text)}
 @keyframes tardis-ring{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
 @keyframes tardis-heart{0%,100%{opacity:.7;filter:brightness(.9)}50%{opacity:1;filter:brightness(1.3)}}
 @media(max-width:450px){.screen{padding:10px;border-width:3px;border-radius:16px}.header{padding:10px 8px}.header:before{width:65px;height:65px;right:7%}.header:after{right:calc(7% + 23px);width:19px;height:19px}.panel{padding:10px;border-radius:16px}.head{margin:-10px -10px 10px;padding:8px 9px;border-radius:14px 14px 6px 6px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px;padding:7px 5px}}
+
+/* 2005–2010 CORAL TARDIS reconstruction: architecture rather than generic brass UI. */
+:root{--bg:#281b12;--panel:#42301e;--border:#a27b46;--text:#fff0c9;--muted:#d5b887;--teal:#75f5db;--amber:#f6b958;--red:#e37c43}
+body{background:#100e0c}
+.screen{background:radial-gradient(ellipse at 50% 0%,#78502a 0%,#4c2e19 24%,#291c16 55%,#191614 100%);border:5px solid #75502b;border-radius:44px 44px 20px 20px;box-shadow:inset 0 0 45px #130e0a}
+.screen:before{opacity:.5;background:
+ repeating-linear-gradient(90deg,transparent 0 84px,rgba(18,11,8,.28) 85px 90px,transparent 91px 150px),
+ repeating-radial-gradient(ellipse at 50% -40%,transparent 0 46px,rgba(226,158,74,.2) 48px 53px,transparent 54px 95px)}
+.header{min-height:214px;display:flex;align-items:flex-end;isolation:isolate;position:relative;padding:13px 14px;background:radial-gradient(ellipse at 50% 40%,#93612d,#58351e 48%,#2b211a 100%);border:3px solid #a67738;border-radius:48px 48px 14px 14px;box-shadow:inset 0 0 26px rgba(19,10,6,.85),0 3px 9px #140e0a}
+.header:before,.header:after{content:none}
+.header>div:not(.tardis-console-art){position:relative;z-index:3;background:rgba(35,23,15,.79);padding:7px 10px;border:1px solid rgba(226,164,78,.5);border-radius:7px;backdrop-filter:blur(3px)}
+.header h1{font-family:Georgia,serif;font-weight:700;color:#ffedc1;text-shadow:0 2px 4px #1b1009}
+.header .eyebrow{color:#dcb875}
+.header .clock{color:#a9fff1}
+.tardis-console-art{display:block;position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.tardis-hex-grid{position:absolute;inset:6px 8px 40px;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,1fr);gap:3px;opacity:.88}
+.tardis-hex-grid i{position:relative;display:block;background:linear-gradient(135deg,#9c6a32,#4d301b 80%);clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%);filter:drop-shadow(0 2px 2px #1c110b)}
+.tardis-hex-grid i:before{content:"";position:absolute;inset:17%;background:radial-gradient(circle,#ffdf94 0 20%,#9c6937 25% 41%,#271d15 47% 60%,#c38d49 65%);border-radius:50%;box-shadow:0 0 14px #efbc68}
+.tardis-rotor{position:absolute;top:-14px;left:50%;width:55px;height:170px;transform:translateX(-50%);border:5px ridge #aa8a51;border-radius:14px 14px 8px 8px;background:linear-gradient(90deg,rgba(15,55,47,.85),rgba(90,255,225,.93) 24%,rgba(210,255,226,.9) 47%,rgba(42,198,174,.94) 70%,rgba(14,55,49,.85));box-shadow:0 0 28px rgba(87,252,210,.75),inset 0 0 16px #146b5e;z-index:2}
+.tardis-rotor:before,.tardis-rotor:after{content:"";position:absolute;left:-12px;right:-12px;height:10px;border-radius:50%;background:linear-gradient(#c29b5e,#54381f);border:2px solid #a17d49}
+.tardis-rotor:before{top:12px}.tardis-rotor:after{bottom:9px}
+.tardis-rotor span{position:absolute;top:12px;bottom:12px;width:5px;background:rgba(235,255,223,.62);box-shadow:0 0 7px #adffe3}.tardis-rotor span:nth-child(1){left:9px}.tardis-rotor span:nth-child(2){left:22px}.tardis-rotor span:nth-child(3){right:9px}
+.tardis-console-deck{position:absolute;bottom:-26px;left:50%;width:255px;height:91px;transform:translateX(-50%);border:7px ridge #9d713c;border-radius:50%;background:radial-gradient(ellipse at 50% 20%,#5d5540 0%,#3c3226 45%,#a5743c 47%,#302319 64%);box-shadow:0 0 15px rgba(102,255,212,.55),0 9px 18px #1a0f09;display:flex;align-items:flex-start;justify-content:space-around;padding:12px 35px;z-index:2}
+.tardis-console-deck b{display:block;width:13px;height:13px;border:3px solid #8e6b41;border-radius:50%;background:#a5f5d3;box-shadow:0 0 9px #70ffcc}
+.panel{background:linear-gradient(145deg,rgba(87,60,35,.96),rgba(44,34,25,.97));border:3px solid #947044;border-radius:25px 25px 13px 13px;box-shadow:inset 0 3px 0 rgba(244,194,115,.24),0 4px 8px #160e0a}
+.panel:before{content:"";position:absolute;right:9px;top:8px;width:23px;height:23px;border:4px double #a77e46;border-radius:50%;opacity:.55}
+.head{background:linear-gradient(180deg,#b78b4e,#7c5c36);border-bottom:3px solid #4c3521}
+.head h2{font-family:Georgia,serif;color:#25190f}
+.head .kicker{color:#382515}
+.weather-day,.pet-care-card{background:linear-gradient(140deg,rgba(149,105,55,.25),rgba(29,28,21,.25));border:1px solid #947447;border-radius:12px}
+.pet-care-card .pet-photo{border-color:#b88e54}
+.day,.datebox{background:#765734;border:2px solid #b78b4f;color:#fff0bf}.today{background:#267f73;border-color:#7cf4d5;color:#fff}
+.footer{background:linear-gradient(180deg,#74502d,#34281e);border-color:#a7804b}
+.theme-switch{background:#58432b;border-color:#b58a50;color:#ffe5ae}
+.theme-switch[data-theme="timey-whimey"][aria-pressed="true"]{background:#18766c;border-color:#a5ffe7;color:#eafff4}
+@media(prefers-reduced-motion:no-preference){.tardis-rotor{animation:time-rotor-glow 5s ease-in-out infinite}.tardis-rotor span{animation:time-rotor-flow 4s ease-in-out infinite alternate}}
+@keyframes time-rotor-glow{0%,100%{filter:brightness(.8)}50%{filter:brightness(1.35)}}
+@keyframes time-rotor-flow{from{opacity:.4}to{opacity:1}}
+@media(max-width:450px){.header{min-height:166px;padding:8px 6px}.header>div:not(.tardis-console-art){padding:5px 6px}.header h1{font-size:21px}.tardis-rotor{height:132px;width:42px}.tardis-console-deck{width:175px;height:66px;bottom:-20px;padding:8px 23px}.tardis-console-deck b{width:9px;height:9px}.tardis-hex-grid{inset:6px 4px 30px;gap:2px}}
