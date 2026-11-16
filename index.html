@@ -38,6 +38,15 @@
     try{localStorage.setItem('household-dashboard-theme',next);}catch(e){}
   }));
 })();
+function fractionQuantity(value){
+ const n=Number(value);
+ if(!Number.isFinite(n)||n<0)return String(value);
+ const whole=Math.floor(n),part=n-whole;
+ const options=[[0.125,'⅛'],[0.25,'¼'],[0.3333333333,'⅓'],[0.375,'⅜'],[0.5,'½'],[0.625,'⅝'],[0.6666666667,'⅔'],[0.75,'¾'],[0.875,'⅞']];
+ if(part<0.001)return String(whole);
+ const match=options.find(([v])=>Math.abs(part-v)<0.015);
+ return match?(whole?whole+' '+match[1]:match[1]):String(value);
+}
 function recipeLines(value){
  if(!value)return [];
  if(typeof value==='string'){try{return recipeLines(JSON.parse(value));}catch{return value.split(/\n/).filter(Boolean);}}
@@ -45,7 +54,7 @@ function recipeLines(value){
  if(typeof value==='object'){
   if(value.text)return [String(value.text)];
   if(value.instruction)return [String(value.instruction)];
-  if(value.name)return [[value.quantity,value.unit,value.name].filter(v=>v!==null&&v!==undefined&&v!=='').join(' '),value.preparation||value.notes].filter(Boolean).join(' — ').split('\\n');
+  if(value.name)return [[value.quantity===null||value.quantity===undefined?'':fractionQuantity(value.quantity),value.unit,value.name].filter(v=>v!==null&&v!==undefined&&v!=='').join(' '),value.preparation||value.notes].filter(Boolean).join(' — ').split('\\n');
   if(value.ingredient)return [String(value.ingredient)];
   return Object.values(value).flatMap(recipeLines);
  }
