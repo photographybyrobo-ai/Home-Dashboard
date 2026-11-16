@@ -182,7 +182,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document
  const panels=[...document.querySelectorAll('#dashboard section.panel')];
  const labels=['weather','meals','activity','calendar','pantry','collection','pets','plants'];
  function summary(key){
-  const text=(sel)=>document.querySelector(sel)?.textContent?.trim().replace(/\\s+/g,' ').slice(0,110)||'';
+  const text=(sel)=>document.querySelector(sel)?.textContent?.trim().replace(/\s+/g,' ').slice(0,110)||'';
   switch(key){
    case 'weather':return text('#weather-location')+' · '+text('#weather-current');
    case 'meals':return text('#meals .meal-title')||text('#meals')||'No meals available';
