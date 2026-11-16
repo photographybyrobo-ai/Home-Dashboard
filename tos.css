@@ -1,0 +1,25 @@
+/* Original Series-inspired bridge console: matte charcoal, colored indicator keys, rectangular instrument panels. */
+:root{--bg:#12191d;--panel:#19252b;--border:#6e8990;--text:#f4eee2;--muted:#bdc8c8;--teal:#84c8d6;--amber:#e9c05c;--red:#ed7661;--tos-gold:#e6b44e;--tos-red:#d65c4d;--tos-blue:#6d9fbd}
+body{background:#0b1013;color:var(--text)}
+.screen{background:#141d22;gap:13px;padding:20px;border:5px solid #415b65;border-radius:8px}
+.header{padding:10px 12px;background:#202d32;border:2px solid #728c91;border-radius:7px;box-shadow:inset 0 3px 0 var(--tos-gold)}
+.header h1{font-family:Impact,"Arial Narrow",system-ui,sans-serif;letter-spacing:.055em;text-transform:uppercase;font-weight:800}
+.eyebrow{color:#e8c46d}.clock{color:#f4e5c4}.online{color:#a8d8bb}
+.panel{background:#1a2429;border:2px solid #667d82;border-radius:5px;padding:12px;box-shadow:inset 0 3px 0 #304249}
+.main>.panel:nth-child(1),.full-width-sections>.panel:nth-child(1){--tos-accent:var(--tos-gold)}
+.main>.panel:nth-child(2),.sidebar>.panel:nth-child(1){--tos-accent:var(--tos-blue)}
+.sidebar>.panel:nth-child(2),.full-width-sections>.panel:nth-child(2){--tos-accent:var(--tos-red)}
+.head{background:var(--tos-accent,var(--tos-gold));border-radius:3px;margin:-12px -12px 12px;padding:9px 12px;min-height:38px;border-bottom:3px solid #0f161a}
+.head h2{color:#11181b;font-family:Impact,"Arial Narrow",system-ui,sans-serif;letter-spacing:.065em;text-transform:uppercase;font-weight:750}
+.head .kicker{color:#16232a;font-weight:800}
+.sidebar .panel{padding:10px 8px}.sidebar .head{margin:-10px -8px 10px;padding:8px}.sidebar h2{color:#10181d;text-align:left}
+.meal,.event,.stock,.pet,.plant{border-top-color:#526a71}
+.day,.datebox{background:var(--tos-blue);color:#101c23;border-radius:3px;font-weight:800}.today{background:var(--tos-gold);color:#1b170b}.datebox strong{color:#111a20}
+.count.teal,.teal,.done{color:#94d2df}.count.amber,.amber,.wait,.plant-note{color:#f2c86e}
+.pet-photo{border:3px solid #86a4aa;border-radius:4px;background:#1b2529}
+.meal.cooked{background:#273137}.meal.cooked .meal-title{text-decoration-color:var(--tos-gold)}.cooked-badge{color:#f4c86d;border-color:#cda74c}
+.footer{background:#1a2429;border:2px solid #60777c;border-top:9px solid var(--tos-red);border-radius:5px}.footnote{color:#c1c9c9}
+.theme-switch{background:#28383e;border:2px solid var(--tos-gold);border-radius:3px;color:#f7d788;text-transform:uppercase;font-weight:800;letter-spacing:.03em}
+.theme-switch:hover,.theme-switch:focus-visible{background:#42535b;outline:2px solid #e8c46d;outline-offset:2px}
+.login-card{background:#1a2429;border-color:#81989b}.login-card button{background:var(--tos-gold);color:#1c211f}
+@media(max-width:450px){.screen{padding:10px;border-width:3px}.panel{padding:10px}.head{margin:-10px -10px 10px;padding:8px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px;padding:7px 5px}}
