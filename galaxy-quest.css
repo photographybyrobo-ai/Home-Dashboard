@@ -1,0 +1,29 @@
+/* Galaxy Quest-inspired Protector command deck: bold, theatrical retro-futurist instrumentation. */
+:root{--bg:#101326;--panel:#202743;--border:#7584b6;--text:#f8eecf;--muted:#c6bdd0;--teal:#74dce3;--amber:#ffd16f;--red:#f0776d;--quest-gold:#f7c55e;--quest-violet:#7668ae;--quest-cyan:#70d8dc}
+body{background:#090b19;color:var(--text)}
+.screen{background:radial-gradient(ellipse at 50% -10%,#343565 0%,#171b36 38%,#101327 75%);border:5px ridge #8e89b5;border-radius:22px;gap:13px;padding:18px;box-shadow:inset 0 0 32px #090a1d}
+.header{position:relative;overflow:hidden;padding:15px 14px;background:linear-gradient(120deg,#363960,#191d37);border:2px solid #e4b95c;border-radius:18px 18px 7px 7px;box-shadow:inset 0 3px 0 #8c85bd,0 3px 0 #0b0d21}
+.header:before{content:"";position:absolute;right:13px;top:11px;width:64px;height:64px;border:3px solid rgba(255,204,105,.46);border-radius:50%;box-shadow:0 0 0 7px rgba(100,206,222,.12),inset 0 0 14px rgba(111,218,228,.3);pointer-events:none}
+.header h1{font-family:Impact,"Arial Narrow",system-ui,sans-serif;letter-spacing:.075em;text-transform:uppercase;font-weight:800;text-shadow:0 2px 0 #1a1a35}
+.eyebrow{color:#ffcf76;letter-spacing:.13em}.clock{color:#ffdb92;text-shadow:0 0 10px rgba(255,204,109,.3)}.online{color:#8cf3dc}
+.panel{position:relative;background:linear-gradient(160deg,#30385a,#171c35 65%);border:2px solid #8785b8;border-radius:16px 16px 9px 9px;padding:12px;box-shadow:inset 0 2px 0 rgba(218,206,255,.19),0 3px 0 #0a0d1f}
+.panel:after{content:"";position:absolute;bottom:4px;right:9px;width:30px;height:5px;border-radius:6px;background:linear-gradient(90deg,#6be0d7 0 30%,#f4c96d 30% 60%,#ed776e 60%);opacity:.9}
+.main>.panel:nth-child(1),.sidebar>.panel:nth-child(2){--quest-accent:#e5bb65}
+.main>.panel:nth-child(2),.full-width-sections>.panel:nth-child(1){--quest-accent:#76cbd9}
+.sidebar>.panel:nth-child(1),.full-width-sections>.panel:nth-child(2){--quest-accent:#c89cda}
+.head{margin:-12px -12px 12px;padding:10px 12px;background:linear-gradient(180deg,var(--quest-accent,#f1c66e),#9384a9);border-bottom:3px solid #5d527d;border-radius:13px 13px 4px 4px}
+.head h2{color:#1d1d36;font-family:Impact,"Arial Narrow",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;font-size:14px}
+.head .kicker{color:#292444;font-weight:800}
+.sidebar .panel{padding:10px 8px}.sidebar .head{margin:-10px -8px 10px;padding:8px 7px}.sidebar h2{color:#23203b;text-align:left;font-size:11px}
+.meal,.event,.stock,.pet,.plant{border-top-color:#5b5b88}
+.day,.datebox{background:linear-gradient(#6b82ad,#495f8c);border:1px solid #a7acd5;border-radius:6px;color:#fff3d5;font-weight:800}.today{background:linear-gradient(#ffd77d,#db9c57);color:#30213b}.datebox strong{color:#fff0c7}
+.count.teal,.teal,.done{color:#8ce5e5}.count.amber,.amber,.wait,.plant-note{color:#ffdc88}
+.pet-photo{border:3px solid #b7a5d5;border-radius:14px;background:#232644}
+.meal.cooked{background:rgba(138,213,207,.11)}.meal.cooked .meal-title{text-decoration-color:#e9be73}.cooked-badge{color:#ffe19c;border-color:#c59e5e}
+.footer{background:linear-gradient(180deg,#33395e,#191d36);border:2px solid #a397ca;border-top:6px solid #e6bd68;border-radius:8px 8px 18px 18px}
+.footer .eyebrow{color:#ffd27b}.footnote{color:#c9c0d8}
+.theme-switch{background:#37345b;border:1px solid #b6a7d4;border-radius:15px;color:#ffe5a6;font-weight:700}
+.theme-switch:hover,.theme-switch:focus-visible{background:#534e7b;outline:2px solid #f6c66a;outline-offset:2px}
+.theme-switch[data-theme="galaxy-quest"][aria-pressed="true"]{background:#866238;color:#fff4ce;border-color:#ffe099}
+.login-card{background:#272c4c;border-color:#b2a0c8}.login-card button{background:#f7c55e;color:#22223e}
+@media(max-width:450px){.screen{padding:10px;border-width:3px;border-radius:12px}.header{padding:10px 7px}.header:before{width:40px;height:40px;right:6px}.panel{padding:10px;border-radius:11px}.head{margin:-10px -10px 10px;padding:8px 9px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px;padding:7px 5px}}
