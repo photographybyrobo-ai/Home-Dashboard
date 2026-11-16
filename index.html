@@ -45,7 +45,7 @@ function recipeLines(value){
  if(typeof value==='object'){
   if(value.text)return [String(value.text)];
   if(value.instruction)return [String(value.instruction)];
-  if(value.name)return [([value.quantity,value.unit,value.name].filter(Boolean).join(' '))];
+  if(value.name)return [[value.quantity,value.unit,value.name].filter(v=>v!==null&&v!==undefined&&v!=='').join(' '),value.preparation||value.notes].filter(Boolean).join(' — ').split('\\n');
   if(value.ingredient)return [String(value.ingredient)];
   return Object.values(value).flatMap(recipeLines);
  }
