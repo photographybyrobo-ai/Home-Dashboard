@@ -6,7 +6,7 @@ if(req.method==='DELETE'){res.setHeader('Set-Cookie',COOKIE+'=; Path=/; HttpOnly
 if(req.method!=='POST')return send(res,405,{error:'Method not allowed'});
 if(!process.env.DASHBOARD_PASSWORD||!process.env.SESSION_SECRET)return send(res,503,{error:'Dashboard authentication is not configured'});
 const password=typeof req.body?.password==='string'?req.body.password:'';
-if(password.length>256||!(secureEqual(password,process.env.DASHBOARD_PASSWORD)||(process.env.DASHBOARD_TEST_PASSWORD&&secureEqual(password,process.env.DASHBOARD_TEST_PASSWORD))))return send(res,401,{error:'Incorrect password'});
+if(password.length>256||!secureEqual(password,process.env.DASHBOARD_PASSWORD))return send(res,401,{error:'Incorrect password'});
 const exp=String(Date.now()+30*24*60*60*1000);
 res.setHeader('Set-Cookie',COOKIE+'='+exp+'.'+sign(exp)+'; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=2592000');
 return send(res,200,{ok:true});
