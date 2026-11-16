@@ -131,7 +131,7 @@ function weatherCondition(code){
  return ['Cloudy','cloud'];
 }
 function weatherIcon(kind){return '<svg viewBox="0 0 24 24" role="img" aria-label="'+kind+'">'+(weatherIcons[kind]||weatherIcons.cloud)+'</svg>';}
-let weatherZip='80241',weatherRequest=0;
+let weatherZip='80216',weatherRequest=0;
 try{const saved=localStorage.getItem('hub-weather-zip');if(/^\d{5}$/.test(saved||''))weatherZip=saved;}catch(e){}
 document.getElementById('weather-zip').value=weatherZip;
 function renderWeather(data,stale=false){
