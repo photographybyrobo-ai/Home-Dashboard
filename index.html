@@ -39,7 +39,7 @@
   }));
 })();
 async function loadMeals(){const box=document.querySelector("#meals");if(!box.children.length)box.textContent="Loading Meal Alchemy plan…";try{const r=await fetch('/api/meal-plan',{credentials:'same-origin',cache:'no-store'});const data=await r.json();if(!r.ok)throw Error(data.error||'Could not load plan');box.replaceChildren();const heading=document.querySelector('.panel .kicker');heading.textContent=data.planName||'MEAL ALCHEMY';if(!data.meals.length){box.textContent='No meals in your active plan';return;}data.meals.forEach((meal,i)=>{const row=document.createElement('div');row.className='meal'+(meal.cooked?' cooked':'');const day=document.createElement('span');day.className='day'+(i===0?' today':'');day.textContent=String(i+1).padStart(2,'0');const title=document.createElement('span');title.className='meal-title';title.textContent=meal.title;
-const recipeId=meal.recipeId??meal.recipe_id??meal.id;
+const recipeId=meal.recipeId??meal.recipe_id;
 if(recipeId!=null && recipeId!==""){
  const link=document.createElement('a');
  link.href='https://mealalchemy.com/?recipe='+encodeURIComponent(String(recipeId));
