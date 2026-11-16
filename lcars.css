@@ -1,0 +1,35 @@
+/* LCARS-inspired optional theme: subdued peach, slate blue, charcoal. */
+:root{--bg:#080a0d;--panel:#10151b;--border:#667c92;--text:#f2e8d9;--muted:#abb6c4;--teal:#8daece;--amber:#e4ac76;--red:#df846f}
+body{background:#030405;color:var(--text)}
+.screen{background:#080a0d;gap:12px;padding:18px 15px 18px 22px;position:relative;border-left:9px solid #849dbd}
+.screen:before{content:"";position:absolute;left:-9px;top:0;width:9px;height:115px;background:#dfa277;border-radius:14px 0 0 0;pointer-events:none}
+.header{background:#0b0d11;border-bottom:8px solid #7794b4;border-radius:0 0 0 22px;padding:8px 8px 15px 12px;position:relative}
+.header:after{content:"";position:absolute;bottom:-8px;right:0;width:24%;height:8px;background:#dfab7d;border-radius:10px}
+.header h1{font-family:"Arial Narrow","Roboto Condensed",system-ui,sans-serif;font-weight:850;letter-spacing:.055em;text-transform:uppercase}
+.eyebrow{color:#d5a37b;letter-spacing:.16em}.online{color:#a9c4d8}.clock{color:#f1d3aa}
+.panel,.footer{background:linear-gradient(145deg,#131920,#0a0e13);border:1px solid #596c80;border-radius:5px 17px 17px 17px;padding:12px}
+.panel{border-left:5px solid #c99373}
+.main>.panel:nth-child(2){border-left-color:#809fc0}
+.sidebar>.panel:nth-child(1){border-left-color:#d8a47b}
+.sidebar>.panel:nth-child(2){border-left-color:#8fa5c4}
+.full-width-sections>.panel{border-left:6px solid #8da5c2}
+.full-width-sections>.panel:nth-child(2){border-left-color:#dba77e}
+.head{background:linear-gradient(90deg,#d3a27d,#b9a28d 65%,#2b3541);margin:-12px -12px 12px -12px;padding:9px 12px;border-radius:0 14px 14px 0;min-height:35px}
+.head h2{color:#10131a;text-transform:uppercase;letter-spacing:.055em;font-weight:850}
+.head .kicker{color:#20232b;font-weight:800}
+.sidebar .head{margin:-10px -8px 10px -8px;padding:8px 6px}
+.sidebar h2{color:#111720;text-align:left}
+.meal,.event,.stock,.pet,.plant{border-top-color:#334253}
+.day,.datebox{background:#7996b6;color:#0b131c;border-radius:10px 3px 3px 10px;font-weight:800}
+.today{background:#e5af79;color:#18120d}
+.datebox strong{color:#101720}
+.meal.cooked{background:rgba(140,166,190,.1)}.meal.cooked .meal-title{text-decoration-color:#e4ac76}.cooked-badge{color:#e8ba8b;border-color:#b47c56}
+.count.teal,.teal,.done{color:#9bbddc}.count.amber,.amber,.wait,.plant-note{color:#e4b281}
+.pet-photo{border-color:#8da5c2;border-radius:12px;background:#1b2630}
+.footer{border-top:7px solid #819bb7;border-left:0;border-radius:5px 5px 18px 18px}
+.footnote{color:#a6afbd}
+.theme-switch{border-color:#9fb4ce;color:#f1d0aa;background:#17212c}
+.theme-switch:hover,.theme-switch:focus-visible{background:#293747;outline:2px solid #d7aa83;outline-offset:2px}
+.login-card{background:#10151b;border-color:#8096b2}.login-card button{background:#d5a17a;color:#11141b}
+@media(max-width:450px){.screen{padding:11px 9px 12px 14px;border-left-width:6px}.screen:before{left:-6px;width:6px}.head{margin:-10px -10px 10px -10px;padding:8px 10px}.sidebar .head{margin:-8px -5px 8px -5px;padding:7px 5px}.panel{padding:10px}.sidebar .panel{padding:8px 5px}.header{padding:7px 3px 13px 6px}}
+@media(min-width:800px){.screen{border-top:1px solid #526478;border-right:1px solid #526478;border-bottom:1px solid #526478}}
