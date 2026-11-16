@@ -1,0 +1,34 @@
+/* Timey Whimey — 2005–2010 TARDIS console-room inspired design.
+   Warm coral architecture, amber instruments, worn brass, teal-blue time vortex. */
+:root{--bg:#121c1d;--panel:#25352e;--border:#8b7951;--text:#f6ebc9;--muted:#c5c3a5;--teal:#82d2d0;--amber:#f4c477;--red:#e48b61;--tardis-brass:#c5a26a;--tardis-glow:#e7ba6b;--tardis-teal:#75c7c8}
+body{background:#080f12;color:var(--text)}
+.screen{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 52% -9%,rgba(93,170,168,.24),transparent 42%),radial-gradient(ellipse at 96% 67%,rgba(181,127,58,.12),transparent 46%),linear-gradient(180deg,#1b302d,#111d22 55%,#182320);border:5px solid #756a49;border-radius:26px;padding:20px;gap:13px;box-shadow:inset 0 0 45px rgba(6,13,13,.8)}
+.screen:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.28;background:repeating-radial-gradient(ellipse at 50% -20%,transparent 0 34px,rgba(223,180,103,.18) 35px 37px,transparent 38px 70px)}
+.header{position:relative;overflow:hidden;padding:16px 14px;background:radial-gradient(ellipse at 80% 50%,rgba(113,206,200,.22),transparent 48%),linear-gradient(110deg,#334a40,#1a302f);border:2px solid #bd985f;border-radius:35px 35px 12px 12px;box-shadow:inset 0 3px 0 rgba(255,222,145,.3),0 0 18px rgba(237,186,93,.08)}
+.header:before{content:"";position:absolute;right:9%;top:50%;width:98px;height:98px;transform:translateY(-50%);border-radius:50%;border:2px solid rgba(231,191,111,.55);box-shadow:0 0 0 8px rgba(111,187,173,.12),0 0 0 16px rgba(231,191,111,.11),inset 0 0 16px rgba(112,209,204,.22);pointer-events:none}
+.header:after{content:"";position:absolute;right:calc(9% + 36px);top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:radial-gradient(circle,#f7e2a3,#b6d6bc 38%,#2f6869 70%,transparent 73%);box-shadow:0 0 17px rgba(136,226,218,.5);pointer-events:none}
+.header>div{position:relative;z-index:1}.header h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(22px,4vw,34px);letter-spacing:.015em;font-weight:650;color:#ffedc2;text-shadow:0 1px 8px rgba(255,196,101,.3)}
+.eyebrow{color:#f0c782;letter-spacing:.11em}.clock{color:#ffe1a1;font-variant-numeric:tabular-nums;text-shadow:0 0 10px rgba(252,193,98,.35)}.online{color:#a2e7db}
+.panel{position:relative;background:linear-gradient(145deg,rgba(54,71,55,.94),rgba(23,42,41,.96));border:2px solid #998459;border-radius:23px 23px 12px 12px;padding:12px;box-shadow:inset 0 3px 0 rgba(237,205,134,.16),0 3px 8px rgba(0,0,0,.2)}
+.panel:after{content:"";position:absolute;bottom:6px;right:11px;width:28px;height:5px;border-radius:8px;background:radial-gradient(circle at 4px 50%,#8de4d7 0 3px,transparent 4px),radial-gradient(circle at 15px 50%,#f4ca76 0 3px,transparent 4px),radial-gradient(circle at 26px 50%,#db916e 0 3px,transparent 4px)}
+.main>.panel:nth-child(1),.sidebar>.panel:nth-child(2){--console-accent:#e3b56c}
+.main>.panel:nth-child(2),.full-width-sections>.panel:nth-child(1){--console-accent:#8bcac1}
+.sidebar>.panel:nth-child(1),.full-width-sections>.panel:nth-child(2){--console-accent:#d6a577}
+.head{margin:-12px -12px 12px;padding:10px 12px;border-bottom:2px solid #927448;border-radius:20px 20px 7px 7px;background:linear-gradient(180deg,var(--console-accent,#e5bd77),#857951)}
+.head h2{font-family:Georgia,"Times New Roman",serif;color:#172c29;font-size:15px;font-weight:750;letter-spacing:.025em}
+.head .kicker{color:#283c32;font-weight:800;letter-spacing:.05em}
+.sidebar .panel{padding:10px 8px}.sidebar .head{margin:-10px -8px 10px;padding:8px}.sidebar h2{color:#18332e;text-align:left;font-size:12px}
+.meal,.event,.stock,.pet,.plant{border-top-color:#67725c}
+.day,.datebox{background:#385d58;border:1px solid #a2b99d;border-radius:11px;color:#e5f5d9;font-weight:750}.today{background:#d9ad65;border-color:#f4d28b;color:#2d3228}.datebox strong{color:#f3e6b9}
+.count.teal,.teal,.done{color:#91e1d7}.count.amber,.amber,.wait,.plant-note{color:#ffd38d}
+.pet-photo{border:3px solid #c6a779;border-radius:50%;background:#203d3c;box-shadow:0 0 0 3px #354b42}
+.meal.cooked{background:rgba(140,200,176,.1)}.meal.cooked .meal-title{text-decoration-color:#d5b477}.cooked-badge{color:#f5d695;border-color:#b69b63}
+.footer{background:linear-gradient(180deg,#4a5540,#243d3b);border:2px solid #b49862;border-top:7px solid #d1a56c;border-radius:13px 13px 24px 24px}.footer .eyebrow{color:#f8d38c}.footnote{color:#c5c8b1}
+.theme-switch{background:#34504b;border:1px solid #c1a470;border-radius:18px;color:#ffe3aa;font-family:Georgia,"Times New Roman",serif;font-weight:750}
+.theme-switch:hover,.theme-switch:focus-visible{background:#4c6b60;outline:2px solid #f5c982;outline-offset:2px}
+.theme-switch[data-theme="timey-whimey"][aria-pressed="true"]{background:#77603a;border-color:#f6d18b;color:#fff0bf}
+.login-card{background:#243e39;border-color:#b79b65}.login-card button{background:#e4b970;color:#21352e}
+@media(prefers-reduced-motion:no-preference){.header:before{animation:tardis-ring 42s linear infinite}.header:after{animation:tardis-heart 5s ease-in-out infinite}}
+@keyframes tardis-ring{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
+@keyframes tardis-heart{0%,100%{opacity:.7;filter:brightness(.9)}50%{opacity:1;filter:brightness(1.3)}}
+@media(max-width:450px){.screen{padding:10px;border-width:3px;border-radius:16px}.header{padding:10px 8px}.header:before{width:65px;height:65px;right:7%}.header:after{right:calc(7% + 23px);width:19px;height:19px}.panel{padding:10px;border-radius:16px}.head{margin:-10px -10px 10px;padding:8px 9px;border-radius:14px 14px 6px 6px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px;padding:7px 5px}}
