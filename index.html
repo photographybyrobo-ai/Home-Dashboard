@@ -8,7 +8,7 @@
 
 /* Full-width bottom pet-care row: consistent across all themes */
 .pet-care-panel{width:100%;min-width:0}.pet-care-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.pet-care-card{min-width:0;padding:10px;border:1px solid var(--border);border-radius:10px;background:rgba(125,170,180,.06)}.pet-care-card .pet-photo{width:74px;height:74px;max-width:100%;margin:0 auto 7px}.pet-care-card .pet-name{font-size:13px;margin-bottom:9px}.pet-care-detail{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--border);padding:7px 0;font-size:10px}.pet-care-detail span:last-child{color:var(--muted);font-size:10px}.pet-care-detail:last-child{padding-bottom:0}@media(max-width:450px){.pet-care-grid{gap:5px}.pet-care-card{padding:7px 4px}.pet-care-card .pet-photo{width:54px;height:54px}.pet-care-card .pet-name{font-size:11px}.pet-care-detail{font-size:9px}.pet-care-detail span:last-child{font-size:9px}}
-.tardis-console-art{display:none}.plants-relocated{grid-template-columns:minmax(0,1fr)}.plants-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.plants-grid .plant{border-top:1px solid var(--border);padding:10px}.plants-grid .plant-name{font-size:13px;margin-bottom:5px}@media(max-width:450px){.plants-grid{gap:6px}.plants-grid .plant{padding:7px}.plants-grid .plant-name{font-size:11px}}</style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="tos-stylesheet" rel="stylesheet" href="/tos.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled><link id="galaxy-quest-stylesheet" rel="stylesheet" href="/galaxy-quest.css" disabled><link id="bigger-inside-stylesheet" rel="stylesheet" href="/bigger-inside.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
+.tardis-console-art{display:none}.plants-relocated{grid-template-columns:minmax(0,1fr)}.plants-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.plants-grid .plant{border-top:1px solid var(--border);padding:10px}.plants-grid .plant-name{font-size:13px;margin-bottom:5px}@media(max-width:450px){.plants-grid{gap:6px}.plants-grid .plant{padding:7px}.plants-grid .plant-name{font-size:11px}}.cooking-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.8);display:grid;place-items:center;padding:16px}.cooking-card{width:min(100%,780px);max-height:90vh;overflow:auto;background:var(--panel);color:var(--text);border:2px solid var(--border);border-radius:14px;padding:24px}.cooking-card h2{font-size:24px}.cooking-card h3{color:var(--teal);margin-top:24px}.cooking-card li{margin:10px 0;line-height:1.5;font-size:16px}.cooking-trigger{border:0;background:transparent;color:var(--text);text-align:left;cursor:pointer;font:inherit;padding:6px}.cooking-trigger:not(:disabled){text-decoration:underline;text-underline-offset:3px}.cooking-trigger:disabled{opacity:.7;cursor:default}.cooking-close{background:var(--teal);color:var(--bg);border:0;border-radius:7px;padding:10px 16px;cursor:pointer;font-weight:bold}</style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="tos-stylesheet" rel="stylesheet" href="/tos.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled><link id="galaxy-quest-stylesheet" rel="stylesheet" href="/galaxy-quest.css" disabled><link id="bigger-inside-stylesheet" rel="stylesheet" href="/bigger-inside.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
 <header class="header"><div class="tardis-console-art" aria-hidden="true"><div class="tardis-rotor"><span></span><span></span><span></span></div><div class="tardis-hex-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tardis-console-deck"><b></b><b></b><b></b><b></b><b></b><b></b></div></div><div><div class="eyebrow">HOUSEHOLD / COMMAND CENTER</div><h1>Home Overview</h1><div class="muted" id="today-date"></div></div><div><div class="clock" id="clock"></div><div class="online">● SYSTEM ONLINE</div></div></header>
 <section class="panel weather-panel" aria-label="Five-day weather forecast"><div class="head"><h2>☁ Weather Forecast</h2><span class="kicker">5-DAY OUTLOOK · SAMPLE DATA</span></div><div class="weather-days" id="weather-days"><div class="weather-day"><div class="weather-name">Today</div><div class="weather-icon" aria-hidden="true">⛅</div><div class="weather-temps">54° <span class="weather-low">/ 35°</span></div><div class="weather-condition">Partly cloudy</div></div><div class="weather-day"><div class="weather-name">Tomorrow</div><div class="weather-icon" aria-hidden="true">☀️</div><div class="weather-temps">58° <span class="weather-low">/ 36°</span></div><div class="weather-condition">Sunny</div></div><div class="weather-day"><div class="weather-name">Day 3</div><div class="weather-icon" aria-hidden="true">🌧️</div><div class="weather-temps">47° <span class="weather-low">/ 31°</span></div><div class="weather-condition">Rain</div></div><div class="weather-day"><div class="weather-name">Day 4</div><div class="weather-icon" aria-hidden="true">🌤️</div><div class="weather-temps">51° <span class="weather-low">/ 33°</span></div><div class="weather-condition">Mostly sunny</div></div><div class="weather-day"><div class="weather-name">Day 5</div><div class="weather-icon" aria-hidden="true">☁️</div><div class="weather-temps">49° <span class="weather-low">/ 29°</span></div><div class="weather-condition">Cloudy</div></div></div><div class="weather-disclaimer">Illustrative temperatures and conditions — not a live forecast.</div></section>
 <div class="layout plants-relocated"><main class="main">
@@ -38,17 +38,55 @@
     try{localStorage.setItem('household-dashboard-theme',next);}catch(e){}
   }));
 })();
-async function loadMeals(){const box=document.querySelector("#meals");if(!box.children.length)box.textContent="Loading Meal Alchemy plan…";try{const r=await fetch('/api/meal-plan',{credentials:'same-origin',cache:'no-store'});const data=await r.json();if(!r.ok)throw Error(data.error||'Could not load plan');box.replaceChildren();const heading=document.querySelector('.panel .kicker');heading.textContent=data.planName||'MEAL ALCHEMY';if(!data.meals.length){box.textContent='No meals in your active plan';return;}data.meals.forEach((meal,i)=>{const row=document.createElement('div');row.className='meal'+(meal.cooked?' cooked':'');const day=document.createElement('span');day.className='day'+(i===0?' today':'');day.textContent=String(i+1).padStart(2,'0');const title=document.createElement('span');title.className='meal-title';title.textContent=meal.title;
-const recipeId=meal.recipeId??meal.recipe_id;
-if(recipeId!=null && recipeId!==""){
- const link=document.createElement('a');
- link.href='https://mealalchemy.com/?recipe='+encodeURIComponent(String(recipeId));
- link.target='_blank';link.rel='noopener noreferrer';
- link.textContent=meal.title;
- link.className='meal-title';
- link.setAttribute('aria-label','Open '+meal.title+' in Meal Alchemy');
- row.append(day,link);
-}else{row.append(day,title);}if(meal.cooked){const badge=document.createElement('span');badge.className='cooked-badge';badge.textContent='✓ COOKED';badge.setAttribute('aria-label','Marked cooked in Meal Alchemy');row.append(badge);}box.append(row);});}catch(e){box.textContent=e.message;}}
+function recipeLines(value){
+ if(!value)return [];
+ if(typeof value==='string'){try{return recipeLines(JSON.parse(value));}catch{return value.split(/\\n/).filter(Boolean);}}
+ if(Array.isArray(value))return value.flatMap(recipeLines);
+ if(typeof value==='object'){
+  if(value.text)return [String(value.text)];
+  if(value.instruction)return [String(value.instruction)];
+  if(value.name)return [([value.quantity,value.unit,value.name].filter(Boolean).join(' '))];
+  if(value.ingredient)return [String(value.ingredient)];
+  return Object.values(value).flatMap(recipeLines);
+ }
+ return [String(value)];
+}
+function openCookingRecipe(meal){
+ const modal=document.querySelector('#cooking-modal');
+ document.querySelector('#cooking-title').textContent=meal.title;
+ for(const [id,value] of [['cooking-ingredients',meal.ingredients],['cooking-instructions',meal.instructions]]){
+  const list=document.getElementById(id);list.replaceChildren();
+  for(const line of recipeLines(value)){const li=document.createElement('li');li.textContent=line;list.append(li);}
+  if(!list.children.length){const li=document.createElement('li');li.textContent='Not available for this recipe';list.append(li);}
+ }
+ modal.hidden=false;
+ document.querySelector('#cooking-close').focus();
+}
+function closeCookingRecipe(){document.querySelector('#cooking-modal').hidden=true;}
+async function loadMeals(){
+ const box=document.querySelector('#meals');
+ if(!box.children.length)box.textContent='Loading Meal Alchemy plan…';
+ try{
+  const r=await fetch('/api/meal-plan',{credentials:'same-origin',cache:'no-store'});
+  const data=await r.json();if(!r.ok)throw Error(data.error||'Could not load plan');
+  box.replaceChildren();
+  document.querySelector('.panel .kicker').textContent=data.planName||'MEAL ALCHEMY';
+  if(!data.meals.length){box.textContent='No meals in your active plan';return;}
+  data.meals.forEach((meal,i)=>{
+   const row=document.createElement('div');row.className='meal'+(meal.cooked?' cooked':'');
+   const day=document.createElement('span');day.className='day'+(i===0?' today':'');day.textContent=String(i+1).padStart(2,'0');
+   row.append(day);
+   const title=document.createElement('button');title.type='button';title.className='meal-title cooking-trigger';
+   title.textContent=meal.title;title.disabled=meal.ingredients==null&&meal.instructions==null;
+   title.addEventListener('click',()=>openCookingRecipe(meal));row.append(title);
+   if(meal.cooked){const badge=document.createElement('span');badge.className='cooked-badge';badge.textContent='✓ COOKED';row.append(badge);}
+   box.append(row);
+  });
+ }catch(e){box.textContent=e.message;}
+}
+document.querySelector('#cooking-close').addEventListener('click',closeCookingRecipe);
+document.querySelector('#cooking-modal').addEventListener('click',e=>{if(e.target.id==='cooking-modal')closeCookingRecipe();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCookingRecipe();});
 async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await loadMeals();}
 document.querySelector('#login-form').addEventListener('submit',async e=>{e.preventDefault();const error=document.querySelector('#login-error');error.textContent='';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});const d=await r.json();if(!r.ok)throw Error(d.error||'Unable to sign in');document.querySelector('#password').value='';await showDashboard();}catch(e){error.textContent=e.message;}});
 fetch('/api/login',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.authenticated)showDashboard();}).catch(()=>{});
@@ -58,4 +96,4 @@ document.querySelector("#pantry").innerHTML=[["Black beans","2 remaining"],["Oli
 const petCare=[["Radar","radar_01.png",[["Nail trim","Not scheduled"],["Bath","Not scheduled"],["Next vet appointment","Not scheduled"]]],[ "Astro","astro_01.png",[["Nail trim","Not scheduled"],["Bath","Not scheduled"],["Next vet appointment","Not scheduled"]]],[ "Maggie","maggie_02.png",[["Nail trim","Not scheduled"],["Bath / grooming","Not scheduled"],["Next vet appointment","Not scheduled"]]]];
 document.querySelector("#pets").innerHTML=petCare.map(([name,photo,tasks])=>'<article class="pet-care-card"><img class="pet-photo" src="/assets/pets/'+photo+'" alt="'+name+'" loading="lazy"><div class="pet-name">'+name+'</div>'+tasks.map(([task,value])=>'<div class="pet-care-detail"><span>'+task+'</span><span>'+value+'</span></div>').join('')+'</article>').join('');
 function updateActivityDates(){const today=new Date();document.querySelectorAll(".activity-date").forEach(el=>{const date=new Date(today.getFullYear(),today.getMonth(),today.getDate()+Number(el.dataset.dayOffset));const weekday=date.toLocaleDateString("en-US",{weekday:"short"});el.textContent=weekday+" "+(date.getMonth()+1)+"/"+date.getDate();el.setAttribute("font-size","8");});}function updateClock(){updateActivityDates();const now=new Date();document.querySelector("#clock").textContent=now.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});document.querySelector("#today-date").textContent=now.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});}updateClock();setInterval(updateClock,30000);setInterval(()=>{if(!document.querySelector('#dashboard').hidden)loadMeals();},120000);
-</script></body></html>
+</script><div id="cooking-modal" class="cooking-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="cooking-title"><article class="cooking-card"><button id="cooking-close" class="cooking-close" type="button">Close recipe</button><h2 id="cooking-title"></h2><h3>Ingredients</h3><ul id="cooking-ingredients"></ul><h3>Instructions</h3><ol id="cooking-instructions"></ol></article></div></body></html>
