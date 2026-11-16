@@ -38,7 +38,17 @@
     try{localStorage.setItem('household-dashboard-theme',next);}catch(e){}
   }));
 })();
-async function loadMeals(){const box=document.querySelector("#meals");if(!box.children.length)box.textContent="Loading Meal Alchemy plan…";try{const r=await fetch('/api/meal-plan',{credentials:'same-origin',cache:'no-store'});const data=await r.json();if(!r.ok)throw Error(data.error||'Could not load plan');box.replaceChildren();const heading=document.querySelector('.panel .kicker');heading.textContent=data.planName||'MEAL ALCHEMY';if(!data.meals.length){box.textContent='No meals in your active plan';return;}data.meals.forEach((meal,i)=>{const row=document.createElement('div');row.className='meal'+(meal.cooked?' cooked':'');const day=document.createElement('span');day.className='day'+(i===0?' today':'');day.textContent=String(i+1).padStart(2,'0');const title=document.createElement('span');title.className='meal-title';title.textContent=meal.title;row.append(day,title);if(meal.cooked){const badge=document.createElement('span');badge.className='cooked-badge';badge.textContent='✓ COOKED';badge.setAttribute('aria-label','Marked cooked in Meal Alchemy');row.append(badge);}box.append(row);});}catch(e){box.textContent=e.message;}}
+async function loadMeals(){const box=document.querySelector("#meals");if(!box.children.length)box.textContent="Loading Meal Alchemy plan…";try{const r=await fetch('/api/meal-plan',{credentials:'same-origin',cache:'no-store'});const data=await r.json();if(!r.ok)throw Error(data.error||'Could not load plan');box.replaceChildren();const heading=document.querySelector('.panel .kicker');heading.textContent=data.planName||'MEAL ALCHEMY';if(!data.meals.length){box.textContent='No meals in your active plan';return;}data.meals.forEach((meal,i)=>{const row=document.createElement('div');row.className='meal'+(meal.cooked?' cooked':'');const day=document.createElement('span');day.className='day'+(i===0?' today':'');day.textContent=String(i+1).padStart(2,'0');const title=document.createElement('span');title.className='meal-title';title.textContent=meal.title;
+const recipeId=meal.recipeId??meal.recipe_id??meal.id;
+if(recipeId!=null && recipeId!==""){
+ const link=document.createElement('a');
+ link.href='https://mealalchemy.com/?recipe='+encodeURIComponent(String(recipeId));
+ link.target='_blank';link.rel='noopener noreferrer';
+ link.textContent=meal.title;
+ link.className='meal-title';
+ link.setAttribute('aria-label','Open '+meal.title+' in Meal Alchemy');
+ row.append(day,link);
+}else{row.append(day,title);}if(meal.cooked){const badge=document.createElement('span');badge.className='cooked-badge';badge.textContent='✓ COOKED';badge.setAttribute('aria-label','Marked cooked in Meal Alchemy');row.append(badge);}box.append(row);});}catch(e){box.textContent=e.message;}}
 async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await loadMeals();}
 document.querySelector('#login-form').addEventListener('submit',async e=>{e.preventDefault();const error=document.querySelector('#login-error');error.textContent='';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});const d=await r.json();if(!r.ok)throw Error(d.error||'Unable to sign in');document.querySelector('#password').value='';await showDashboard();}catch(e){error.textContent=e.message;}});
 fetch('/api/login',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.authenticated)showDashboard();}).catch(()=>{});
