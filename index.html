@@ -40,7 +40,7 @@
 })();
 function recipeLines(value){
  if(!value)return [];
- if(typeof value==='string'){try{return recipeLines(JSON.parse(value));}catch{return value.split(/\\n/).filter(Boolean);}}
+ if(typeof value==='string'){try{return recipeLines(JSON.parse(value));}catch{return value.split(/\n/).filter(Boolean);}}
  if(Array.isArray(value))return value.flatMap(recipeLines);
  if(typeof value==='object'){
   if(value.text)return [String(value.text)];
