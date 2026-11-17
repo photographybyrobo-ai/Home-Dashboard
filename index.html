@@ -208,7 +208,7 @@ function weatherCondition(code){
  return ['Cloudy','cloud'];
 }
 const colorfulWeatherIcons={sun:'☀️',cloud:'☁️',rain:'🌧️',snow:'❄️',storm:'⛈️',fog:'🌫️',partly:'🌤️'};
-function weatherIcon(kind){return '<span role="img" aria-label="'+kind+'">'+(colorfulWeatherIcons[kind]||colorfulWeatherIcons.cloud)+'</span>';}
+function weatherIcon(kind){if(kind==='fog')return '<svg role="img" aria-label="Fog" viewBox="0 0 48 48" width="36" height="36" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;overflow:visible"><path d="M10 19c-1-7 5-12 12-12 6 0 10 3 12 9 6 0 10 4 10 9 0 2-1 4-2 5H8c-3-2-4-5-3-8 1-2 3-3 5-3Z" fill="#b7c8d7" opacity=".9"/><path d="M6 30h36M11 36h26M7 42h32" stroke="#e1e9ef" stroke-width="3" stroke-linecap="round" fill="none"/></svg>';return '<span role="img" aria-label="'+kind+'">'+(colorfulWeatherIcons[kind]||colorfulWeatherIcons.cloud)+'</span>';}
 let weatherZip='80216',weatherRequest=0;
 try{const saved=localStorage.getItem('hub-weather-zip');if(/^\d{5}$/.test(saved||''))weatherZip=saved;}catch(e){}
 document.getElementById('weather-zip').value=weatherZip;
