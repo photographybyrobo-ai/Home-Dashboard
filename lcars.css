@@ -62,3 +62,14 @@ body{background:#030304;color:var(--text)}
 @keyframes lcars-clock-scan{0%,12.49%{opacity:1}12.5%,100%{opacity:.28}}
 @media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress i{animation:none;opacity:.75}}
+
+/* Align the lower-left LCARS elbows with their rails at every viewport. */
+.panel{border-bottom-left-radius:24px}
+.panel:before{display:none}
+.screen{border-bottom-left-radius:24px}
+.screen:before{border-bottom-left-radius:24px}
+@media(max-width:450px){
+ .panel{border-left-width:7px;border-bottom-width:6px;border-bottom-left-radius:20px}
+ .screen{border-bottom-left-radius:20px}
+ .screen:before{border-bottom-left-radius:20px}
+}
