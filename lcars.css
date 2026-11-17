@@ -25,3 +25,40 @@ body{background:#030304;color:var(--text)}
 .login-card{background:#08090c;border-color:var(--lcars-blue)}.login-card button{background:var(--lcars-peach);color:#0d0b0c}
 @media(max-width:450px){.screen{padding:11px 8px 12px 17px;border-left-width:9px}.screen:before{left:-9px;width:9px}.panel{padding:10px;border-left-width:7px}.head{margin:-10px -10px 10px -10px;padding:7px 9px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px -5px;padding:7px 5px}.header{padding:6px 3px 13px 4px}}
 @media(min-width:800px){body{padding:20px}.screen{border-top:0;border-right:0;border-bottom:0;border-radius:0}}
+
+/* TNG-style refinements: connected elbow rails, restrained accents, readable controls. */
+.screen{--lcars-rail-width:13px}
+.header{border-bottom-left-radius:30px}
+.header .eyebrow{letter-spacing:.13em;font-weight:800}
+.header h1,.panel h2{font-family:"Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;font-stretch:condensed}
+.panel{border-left-width:11px;border-bottom-width:6px;border-bottom-left-radius:24px}
+.panel:before{content:"";position:absolute;left:-11px;bottom:-6px;width:11px;height:19px;background:var(--rail,var(--lcars-peach));border-radius:0 0 0 10px;pointer-events:none}
+.panel .head{border-radius:0 20px 20px 0}
+.panel .head:after{content:"";display:block;width:18px;min-width:18px;height:5px;margin-left:auto;border-radius:8px;background:rgba(8,9,12,.35)}
+.weather-panel{--rail:var(--lcars-peach)}
+.collection-panel{--rail:var(--lcars-lilac)}
+.pet-care-panel{--rail:var(--lcars-blue)}
+.plants-panel{--rail:var(--lcars-pink)}
+.theme-switch,.weather-settings button,.weather-settings input{border-radius:16px;background:#15131b;border:1px solid var(--lcars-lilac);color:var(--text)}
+.theme-switch[aria-pressed="true"]{background:var(--lcars-peach);color:#111015;border-color:var(--lcars-peach);font-weight:800}
+.weather-settings button{background:var(--lcars-blue);color:#101015;font-weight:800;border-color:transparent}
+.weather-settings button:hover{background:var(--lcars-pink)}
+.weather-settings input:focus-visible,.theme-switch:focus-visible,.weather-settings button:focus-visible{outline:2px solid var(--lcars-pink);outline-offset:2px}
+.clock-console{position:relative;min-width:0;text-align:right;padding:4px 0 2px 10px}
+.lcars-clock-caption{display:flex;justify-content:flex-end;gap:9px;font-size:8px;letter-spacing:.09em;font-weight:800;color:var(--lcars-pink);white-space:nowrap}
+.lcars-clock-caption span{color:var(--lcars-blue)}
+.clock-console .clock{font-variant-numeric:tabular-nums;letter-spacing:.045em}
+.lcars-clock-progress{display:flex;justify-content:flex-end;gap:3px;margin:5px 0 5px auto;max-width:180px;height:5px;overflow:hidden}
+.lcars-clock-progress i{display:block;flex:1;min-width:0;background:var(--lcars-blue);border-radius:4px;opacity:.35;animation:lcars-clock-scan 8s steps(1,end) infinite}
+.lcars-clock-progress i:nth-child(2){animation-delay:-1s}
+.lcars-clock-progress i:nth-child(3){animation-delay:-2s}
+.lcars-clock-progress i:nth-child(4){animation-delay:-3s}
+.lcars-clock-progress i:nth-child(5){animation-delay:-4s}
+.lcars-clock-progress i:nth-child(6){animation-delay:-5s}
+.lcars-clock-progress i:nth-child(7){animation-delay:-6s}
+.lcars-clock-progress i:nth-child(8){animation-delay:-7s}
+.lcars-clock-progress i:nth-child(3n){background:var(--lcars-pink)}
+.lcars-clock-progress i:nth-child(4n){background:var(--lcars-peach)}
+@keyframes lcars-clock-scan{0%,12.49%{opacity:1}12.5%,100%{opacity:.28}}
+@media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
+@media(prefers-reduced-motion:reduce){.lcars-clock-progress i{animation:none;opacity:.75}}
