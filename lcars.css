@@ -54,8 +54,9 @@ body{background:#030304;color:var(--text)}
 .lcars-clock-progress i:nth-child(3n){background:var(--lcars-pink)}
 .lcars-clock-progress i:nth-child(4n){background:var(--lcars-peach)}
 .lcars-clock-progress{position:relative}
-.lcars-clock-progress:after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc((100% - 21px)/8);border-radius:4px;background:#f3c18c;box-shadow:0 0 5px rgba(243,193,140,.55);animation:lcars-clock-blip 2.5s steps(7,end) infinite alternate;pointer-events:none}
-@keyframes lcars-clock-blip{from{left:0}to{left:calc(100% - (100% - 21px)/8)}}
+.lcars-clock-progress:after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc((100% - 21px)/8);border-radius:4px;background:#f3c18c;box-shadow:0 0 5px rgba(243,193,140,.55);animation:lcars-clock-blip 5s steps(1,end) infinite;pointer-events:none}
+/* Explicitly visit both end segments; each position is held before jumping. */
+@keyframes lcars-clock-blip{0.00000%{left:0} 7.14286%{left:calc((100% - 21px) * 1 / 8 + 3px)} 14.28571%{left:calc((100% - 21px) * 2 / 8 + 6px)} 21.42857%{left:calc((100% - 21px) * 3 / 8 + 9px)} 28.57143%{left:calc((100% - 21px) * 4 / 8 + 12px)} 35.71429%{left:calc((100% - 21px) * 5 / 8 + 15px)} 42.85714%{left:calc((100% - 21px) * 6 / 8 + 18px)} 50.00000%{left:calc((100% - 21px) * 7 / 8 + 21px)} 57.14286%{left:calc((100% - 21px) * 6 / 8 + 18px)} 64.28571%{left:calc((100% - 21px) * 5 / 8 + 15px)} 71.42857%{left:calc((100% - 21px) * 4 / 8 + 12px)} 78.57143%{left:calc((100% - 21px) * 3 / 8 + 9px)} 85.71429%{left:calc((100% - 21px) * 2 / 8 + 6px)} 92.85714%{left:calc((100% - 21px) * 1 / 8 + 3px)} 100%{left:0}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress:after{animation:none;left:0}}
 @media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress i{animation:none;opacity:.75}}
