@@ -49,12 +49,12 @@ body{background:#030304;color:var(--text)}
 .lcars-clock-caption span{color:var(--lcars-blue)}
 .clock-console .clock{font-variant-numeric:tabular-nums;letter-spacing:.045em}
 .lcars-clock-progress{display:flex;justify-content:flex-end;gap:3px;margin:5px 0 5px auto;max-width:180px;height:5px;overflow:hidden}
-/* One illuminated blip travels back and forth across the clock track. */
+/* One illuminated blip jumps between eight discrete clock segments, reversing at each end. */
 .lcars-clock-progress i{display:block;flex:1;min-width:0;background:var(--lcars-blue);border-radius:4px;opacity:.22;animation:none}
 .lcars-clock-progress i:nth-child(3n){background:var(--lcars-pink)}
 .lcars-clock-progress i:nth-child(4n){background:var(--lcars-peach)}
 .lcars-clock-progress{position:relative}
-.lcars-clock-progress:after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc((100% - 21px)/8);border-radius:4px;background:#f3c18c;box-shadow:0 0 5px rgba(243,193,140,.55);animation:lcars-clock-blip 2.5s linear infinite alternate;pointer-events:none}
+.lcars-clock-progress:after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc((100% - 21px)/8);border-radius:4px;background:#f3c18c;box-shadow:0 0 5px rgba(243,193,140,.55);animation:lcars-clock-blip 2.5s steps(7,end) infinite alternate;pointer-events:none}
 @keyframes lcars-clock-blip{from{left:0}to{left:calc(100% - (100% - 21px)/8)}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress:after{animation:none;left:0}}
 @media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
