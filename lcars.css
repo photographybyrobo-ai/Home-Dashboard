@@ -49,25 +49,14 @@ body{background:#030304;color:var(--text)}
 .lcars-clock-caption span{color:var(--lcars-blue)}
 .clock-console .clock{font-variant-numeric:tabular-nums;letter-spacing:.045em}
 .lcars-clock-progress{display:flex;justify-content:flex-end;gap:3px;margin:5px 0 5px auto;max-width:180px;height:5px;overflow:hidden}
-.lcars-clock-progress i{display:block;flex:1;min-width:0;background:var(--lcars-blue);border-radius:4px;opacity:.28;animation-duration:7s;animation-timing-function:steps(1,end);animation-iteration-count:infinite}
-.lcars-clock-progress i:nth-child(1){animation-name:lcars-clock-pingpong-1}
-@keyframes lcars-clock-pingpong-1{0.000%,7.133%{opacity:1}}
-.lcars-clock-progress i:nth-child(2){animation-name:lcars-clock-pingpong-2}
-@keyframes lcars-clock-pingpong-2{7.143%,14.276%{opacity:1}92.857%,99.990%{opacity:1}}
-.lcars-clock-progress i:nth-child(3){animation-name:lcars-clock-pingpong-3}
-@keyframes lcars-clock-pingpong-3{14.286%,21.419%{opacity:1}85.714%,92.847%{opacity:1}}
-.lcars-clock-progress i:nth-child(4){animation-name:lcars-clock-pingpong-4}
-@keyframes lcars-clock-pingpong-4{21.429%,28.561%{opacity:1}78.571%,85.704%{opacity:1}}
-.lcars-clock-progress i:nth-child(5){animation-name:lcars-clock-pingpong-5}
-@keyframes lcars-clock-pingpong-5{28.571%,35.704%{opacity:1}71.429%,78.561%{opacity:1}}
-.lcars-clock-progress i:nth-child(6){animation-name:lcars-clock-pingpong-6}
-@keyframes lcars-clock-pingpong-6{35.714%,42.847%{opacity:1}64.286%,71.419%{opacity:1}}
-.lcars-clock-progress i:nth-child(7){animation-name:lcars-clock-pingpong-7}
-@keyframes lcars-clock-pingpong-7{42.857%,49.990%{opacity:1}57.143%,64.276%{opacity:1}}
-.lcars-clock-progress i:nth-child(8){animation-name:lcars-clock-pingpong-8}
-@keyframes lcars-clock-pingpong-8{50.000%,57.133%{opacity:1}}
+/* One illuminated blip travels back and forth across the clock track. */
+.lcars-clock-progress i{display:block;flex:1;min-width:0;background:var(--lcars-blue);border-radius:4px;opacity:.22;animation:none}
 .lcars-clock-progress i:nth-child(3n){background:var(--lcars-pink)}
 .lcars-clock-progress i:nth-child(4n){background:var(--lcars-peach)}
+.lcars-clock-progress{position:relative}
+.lcars-clock-progress:after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc((100% - 21px)/8);border-radius:4px;background:#f3c18c;box-shadow:0 0 5px rgba(243,193,140,.55);animation:lcars-clock-blip 5.6s linear infinite alternate;pointer-events:none}
+@keyframes lcars-clock-blip{from{left:0}to{left:calc(100% - (100% - 21px)/8)}}
+@media(prefers-reduced-motion:reduce){.lcars-clock-progress:after{animation:none;left:0}}
 @media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress i{animation:none;opacity:.75}}
 
