@@ -151,8 +151,9 @@ function renderWeather(data,stale=false){
   const desc=document.createElement('div');desc.className='weather-condition';desc.textContent=label;
   const rain=document.createElement('div');rain.className='weather-rain';const chance=data.daily.precipitation_probability_max?.[i];rain.textContent=chance==null?'':'☂ '+chance+'%';
   const low=Number(data.daily.temperature_2m_min[i]);
-  if(Number.isFinite(low)&&low<32){const freeze=document.createElement('div');freeze.className='weather-freeze';freeze.textContent='🧊 Freeze';freeze.setAttribute('aria-label','Freeze warning: forecast low below 32 degrees Fahrenheit');freeze.title='Forecast low below 32°F';day.append(freeze);}
-  day.append(title,symbol,temps,desc,rain);days.append(day);
+  if(Number.isFinite(low)&&low<32){const freeze=document.createElement('div');freeze.className='weather-freeze';freeze.textContent='🧊 Freeze';freeze.setAttribute('aria-label','Freeze warning: forecast low below 32 degrees Fahrenheit');freeze.title='Forecast low below 32°F';day.append(title,symbol,temps,freeze);}
+  else{day.append(title,symbol,temps);}
+  day.append(desc,rain);days.append(day);
  });
  document.getElementById('weather-status').textContent=stale?'CACHED FORECAST':'LIVE · 10-DAY OUTLOOK';
  document.getElementById('weather-updated').textContent=(stale?'Offline · showing saved forecast · ':'Updated '+new Date(data.updatedAt).toLocaleString()+' · ')+'Weather: Open-Meteo · ZIP lookup: Zippopotam.us';
