@@ -16,14 +16,37 @@
 .panel.collapsible>.head{flex-wrap:wrap}.panel-toggle{display:flex;align-items:center;gap:8px;min-width:0;flex:1;text-align:left;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;padding:5px 0}.panel-toggle h2{margin:0}.panel-toggle:focus-visible{outline:2px solid var(--teal);outline-offset:3px}.panel-chevron{color:var(--teal);font-size:13px}.panel-summary{display:none;width:100%;font-size:12px;color:var(--muted);line-height:1.4;overflow-wrap:anywhere}.panel.collapsed>.head{margin-bottom:0}.panel.collapsed>.head .kicker{display:none}.panel.collapsed .panel-summary{display:block}.panel.collapsed>.panel-body{display:none!important}
 .screen{position:relative}.theme-controls-top{position:absolute;top:4px;right:12px;z-index:5;justify-content:flex-end;padding:0 4px;gap:4px}.theme-controls-top .theme-label{display:none}.theme-controls-top .theme-switch{font-size:10px;padding:4px 7px;background:var(--panel)}.theme-controls-top .theme-switch{margin:0}.theme-label{font-size:10px;letter-spacing:.12em;font-weight:800;color:var(--muted);margin-right:4px}@media(max-width:450px){.theme-controls-top{justify-content:flex-end;right:8px;top:4px}.header{padding-top:30px}}
 
-/* Wide-screen dashboard: two balanced columns, portrait layout unchanged. */
-@media(min-width:900px){
- body .screen{width:min(100%,1320px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;align-items:start;column-gap:16px;row-gap:16px}
+/* Responsive dashboard: portrait, tablet and desktop. Shared by both themes. */
+@media(max-width:599px){
+ body .screen{width:100%;max-width:100%}
+ body .screen>.layout{display:block}
+ body .screen>.layout>.main{display:flex;flex-direction:column}
+ body .screen>.full-width-sections{display:flex;flex-direction:column}
+ body .screen .weather-days{grid-template-columns:repeat(5,minmax(0,1fr))}
+ body .screen .weather-day{min-width:0}
+ body .screen .weather-temps{font-size:clamp(9px,2.7vw,13px)}
+ body .screen .weather-settings{align-items:flex-start}
+ body .screen .weather-settings form{max-width:100%;justify-content:flex-end}
+ body .screen .weather-settings input{min-width:0}
+}
+@media(min-width:600px){
+ body .screen{width:min(100%,1320px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;align-items:start;column-gap:14px;row-gap:14px}
  body .screen>.header,body .screen>.weather-panel{grid-column:1/-1}
  body .screen>.layout,body .screen>.layout>.main,body .screen>.full-width-sections{display:contents}
  body .screen .main>.panel,body .screen .full-width-sections>.panel,body .screen>.collection-panel,body .screen>.pet-care-panel,body .screen>.plants-panel{min-width:0;width:100%;align-self:stretch}
  body .screen>.pet-care-panel{grid-column:1/-1}
  body .screen>.theme-controls-top{position:absolute;top:5px;right:16px}
+ body .screen .weather-days{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+@media(min-width:600px) and (max-width:899px){
+ body .screen{padding:16px;column-gap:10px;row-gap:10px}
+ body .screen .panel{padding:11px}
+ body .screen .weather-day{padding:9px 3px}
+}
+@media(min-width:900px){
+ body .screen{column-gap:16px;row-gap:16px}
+}
+@media(min-width:1150px){
  body .screen .weather-days{grid-template-columns:repeat(10,minmax(0,1fr))}
 }
 </style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
