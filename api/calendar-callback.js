@@ -1,0 +1,23 @@
+const {isAuthorized,secureEqual,sign}=require('./_auth');
+function page(res,title,message){res.status(200).setHeader('Content-Type','text/html; charset=utf-8').setHeader('Cache-Control','no-store').end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calendar connection</title></head><body style="font:16px system-ui;max-width:650px;margin:40px auto;padding:20px"><h1>'+title+'</h1><div id="content"></div><script>document.getElementById("content").textContent='+JSON.stringify(message)+';</script></body></html>');}
+module.exports=async function(req,res){
+ res.setHeader('Cache-Control','no-store');
+ res.setHeader('Set-Cookie','calendar_oauth_state=; Path=/api/calendar-callback; HttpOnly; Secure; SameSite=Lax; Max-Age=0');
+ if(!isAuthorized(req))return page(res,'Sign in required','Sign in to Home Dashboard and restart the calendar connection.');
+ const state=String(req.query?.state||'');const cookie=(req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('calendar_oauth_state='));
+ let stored='';try{stored=decodeURIComponent(cookie?.split('=').slice(1).join('=')||'');}catch(e){}
+ const [nonce,sig]=state.split('.');
+ if(!nonce||!sig||!stored||!secureEqual(state,stored)||!secureEqual(sig,sign('google-oauth:'+nonce)))return page(res,'Authorization expired','Return to Home Dashboard and try connecting again.');
+ if(req.query?.error)return page(res,'Authorization declined','Google did not authorize the calendar connection.');
+ const code=String(req.query?.code||'');if(!code)return page(res,'Authorization failed','Google did not return an authorization code.');
+ try{
+  const response=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({code,client_id:process.env.GOOGLE_CLIENT_ID,client_secret:process.env.GOOGLE_CLIENT_SECRET,redirect_uri:'https://home-dashboard-flame.vercel.app/api/calendar-callback',grant_type:'authorization_code'}),signal:AbortSignal.timeout(10000)});
+  const tokens=await response.json();if(!response.ok||!tokens.access_token)throw Error('Token exchange failed: '+(tokens.error||response.status));
+  const listResponse=await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?maxResults=250',{headers:{Authorization:'Bearer '+tokens.access_token},signal:AbortSignal.timeout(10000)});
+  const calendars=listResponse.ok?(await listResponse.json()).items||[]:[];
+  const options=calendars.filter(x=>/bungalow bogan/i.test(x.summary||'')).map(x=>({name:x.summary,id:x.id}));
+  const data={refreshToken:tokens.refresh_token||null,calendars:options,calendarListAvailable:listResponse.ok};
+  const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calendar authorization</title></head><body style="font:16px system-ui;max-width:720px;margin:30px auto;padding:18px"><h1>Google Calendar authorized</h1><p>Keep this page private. Copy the following values into Vercel → home-dashboard → Settings → Environment Variables (Production). Do not paste them into chat or GitHub.</p><div id="fields"></div><p>After saving the variables, redeploy Home Dashboard. This page contains a sensitive refresh token: close it when finished.</p><script>const data='+JSON.stringify(data).replace(/</g,'\\u003c')+';const root=document.getElementById("fields");function field(label,value){const p=document.createElement("p");const b=document.createElement("strong");b.textContent=label;p.append(b,document.createElement("br"));const t=document.createElement("textarea");t.readOnly=true;t.rows=3;t.style.width="100%";t.value=value||"Not returned — restart authorization if necessary";p.append(t);root.append(p)}field("GOOGLE_REFRESH_TOKEN",data.refreshToken);if(data.calendars.length===1)field("GOOGLE_CALENDAR_ID",data.calendars[0].id);else if(data.calendars.length>1){data.calendars.forEach(x=>field("GOOGLE_CALENDAR_ID ("+x.name+")",x.id))}else{const p=document.createElement("p");p.textContent="Bungalow Bogan was not found automatically. Check that you authorized the correct Google account and have access to the shared calendar.";root.append(p)}</script></body></html>';
+  res.status(200).setHeader('Content-Type','text/html; charset=utf-8').end(html);
+ }catch(e){console.error('Google OAuth callback failed:',e.message);return page(res,'Connection failed','Google could not complete authorization. Return to Home Dashboard and retry.');}
+};
