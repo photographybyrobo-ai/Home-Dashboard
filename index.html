@@ -177,11 +177,33 @@ async function loadMeals(){
 document.querySelector('#cooking-close').addEventListener('click',closeCookingRecipe);
 document.querySelector('#cooking-modal').addEventListener('click',e=>{if(e.target.id==='cooking-modal')closeCookingRecipe();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCookingRecipe();});
-async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await loadMeals();}
+async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await Promise.all([loadMeals(),loadCalendar()]);}
 document.querySelector('#login-form').addEventListener('submit',async e=>{e.preventDefault();const error=document.querySelector('#login-error');error.textContent='';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});const d=await r.json();if(!r.ok)throw Error(d.error||'Unable to sign in');document.querySelector('#password').value='';await showDashboard();}catch(e){error.textContent=e.message;}});
 fetch('/api/login',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.authenticated)showDashboard();}).catch(()=>{});
-const events=[["MON","16","Appointment","9:00 AM"],["TUE","17","Family event","6:00 PM"],["THU","19","Errands","4:30 PM"]];
-document.querySelector("#events").innerHTML=events.map(([d,n,t,h])=>'<div class="event"><div class="datebox">'+d+'<strong>'+n+'</strong></div><div><div class="event-title">'+t+'</div><div class="muted">'+h+'</div></div></div>').join('');
+async function loadCalendar(){
+ const box=document.querySelector('#events');box.textContent='Loading upcoming events…';
+ try{
+  const r=await fetch('/api/calendar',{credentials:'same-origin',cache:'no-store'});
+  const data=await r.json();if(!r.ok)throw Error(data.error||'Calendar unavailable');
+  box.replaceChildren();
+  if(!data.events.length){box.textContent='No upcoming events';return;}
+  const tz='America/Denver';
+  for(const event of data.events){
+   if(!event.start)continue;
+   const date=event.allDay?new Date(event.start+'T12:00:00Z'):new Date(event.start);
+   const day=event.allDay?new Date(event.start+'T12:00:00'):date;
+   const weekday=new Intl.DateTimeFormat('en-US',{weekday:'short',timeZone:event.allDay?'UTC':tz}).format(event.allDay?date:day).toUpperCase();
+   const number=new Intl.DateTimeFormat('en-US',{day:'numeric',timeZone:event.allDay?'UTC':tz}).format(event.allDay?date:day);
+   const row=document.createElement('div');row.className='event';
+   const badge=document.createElement('div');badge.className='datebox';badge.textContent=weekday;
+   const strong=document.createElement('strong');strong.textContent=number;badge.append(strong);
+   const detail=document.createElement('div');const title=document.createElement('div');title.className='event-title';title.textContent=event.title;
+   const time=document.createElement('div');time.className='muted';time.textContent=event.allDay?'All day':new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:tz}).format(date);
+   detail.append(title,time);row.append(badge,detail);box.append(row);
+  }
+ }catch(e){box.replaceChildren();const note=document.createElement('div');note.className='muted';note.textContent=e.message;box.append(note);}
+}
+
 document.querySelector("#pantry").innerHTML=[["Black beans","2 remaining"],["Olive oil","OUT"],["Rice","1 remaining"]].map(([n,s])=>'<div class="stock '+(s==="OUT"?"out":"")+'"><span>'+n+'</span><span>'+s+'</span></div>').join('');
 const petCare=[["Radar","radar_01.png",[["Nail trim","Not scheduled"],["Bath","Not scheduled"],["Next vet appointment","Not scheduled"]]],[ "Astro","astro_01.png",[["Nail trim","Not scheduled"],["Bath","Not scheduled"],["Next vet appointment","Not scheduled"]]],[ "Maggie","maggie_02.png",[["Nail trim","Not scheduled"],["Bath / grooming","Not scheduled"],["Next vet appointment","Not scheduled"]]]];
 document.querySelector("#pets").innerHTML=petCare.map(([name,photo,tasks])=>'<article class="pet-care-card"><img class="pet-photo" src="/assets/pets/'+photo+'" alt="'+name+'" loading="lazy"><div class="pet-name">'+name+'</div>'+tasks.map(([task,value])=>'<div class="pet-care-detail"><span>'+task+'</span><span>'+value+'</span></div>').join('')+'</article>').join('');
@@ -258,6 +280,9 @@ document.getElementById('weather-zip-form').addEventListener('submit',e=>{
 document.getElementById('weather-denver-reset').addEventListener('click',()=>refreshWeather('80216'));
 refreshWeather();setInterval(()=>{if(!document.getElementById('dashboard').hidden)refreshWeather();},3600000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document.getElementById('dashboard').hidden)refreshWeather();});
+
+setInterval(()=>{if(!document.getElementById('dashboard').hidden)loadCalendar();},15*60*1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document.getElementById('dashboard').hidden)loadCalendar();});
 
 // Compact summaries use the currently rendered information, not a second data source.
 (function initCollapsiblePanels(){
