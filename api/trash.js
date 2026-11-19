@@ -1,1 +1,67 @@
-Ly8gVHJhc2ggY29sbGVjdGlvbiB3ZWJob29rIGZvciBWZXJjZWw6IGRldGVybWluaXN0aWMsIG5vIEFJLgovLyBSZWNlaXZlcyBhIGZvcndhcmRlZCBEZW52ZXIgdHJhc2ggZW1haWwsIGNoZWNrcyB0aGUgc2VuZGVyIG9ubHksCi8vIHBhcnNlcyB0aGUgcGlja3VwIGRhdGUsIGFuZCBzYXZlcyBpdCB0byBjb2xsZWN0aW9uLmpzb24gaW4gR2l0SHViCi8vIHZpYSB0aGUgR2l0SHViIEFQSSAoR0lUSFVCX1RPS0VOIGVudiB2YXIgaW4gVmVyY2VsKS4KLy8gR0VUIHJldHVybnMgdGhlIGN1cnJlbnQgc2F2ZWQgcGlja3VwIGZvciB0aGUgZGFzaGJvYXJkLgpjb25zdCB7c2VuZCwgc2VjdXJlRXF1YWx9ID0gcmVxdWlyZSgnLi9fYXV0aCcpOwpjb25zdCBPV05FUiA9ICdwaG90b2dyYXBoeWJ5cm9iby1haSc7CmNvbnN0IFJFUE8gPSAnSG9tZS1EYXNoYm9hcmQnOwpjb25zdCBTRU5ERVIgPSAnZGVudmVyLXdhc3RlQHJlbWVtYmVyLnJlY29sbGVjdC5uZXQnOwoKZnVuY3Rpb24gcGFyc2VCb2R5KGJvZHkpIHsKICBjb25zdCB0ZXh0ID0gW2JvZHkuc3ViamVjdCB8fCAnJywgYm9keS50ZXh0IHx8ICcnLCBib2R5LmJvZHkgfHwgJycsIGJvZHkuaHRtbCB8fCAnJ10uam9pbignXG4nKTsKICBjb25zdCBtID0gdGV4dC5tYXRjaCgvKD86cGlja2VkIHVwIG9ufGNvbGxlY3Rpb25bXlxcbl17MCw0MH0/KVxzKihNb258VHVlfFdlZHxUaHV8RnJpfFNhdHxTdW4pLD9ccysoW0EtWl1bYS16XXsyLDh9KVxzKyhcZHsxLDJ9KSxccysoXGR7NH0pL2kpCiAgICB8fCB0ZXh0Lm1hdGNoKC8oTW9ufFR1ZXxXZWR8VGh1fEZyaXxTYXR8U3VuKSw/XHMrKFtBLVpdW2Etel17Miw4fSlccysoXGR7MSwyfSksXHMrKFxkezR9KS8pOwogIGlmICghbSkgcmV0dXJuIG51bGw7CiAgY29uc3QgZGF0ZVN0ciA9IG1bMF0ucmVwbGFjZSgvXnBpY2tlZCB1cCBvblxzKi9pLCAnJykudHJpbSgpOwogIGNvbnN0IGl0ZW1zID0gW107CiAgaWYgKC90cmFzaC9pLnRlc3QodGV4dCkpIGl0ZW1zLnB1c2goJ1RyYXNoJyk7CiAgaWYgKC9yZWN5Y2wvaS50ZXN0KHRleHQpKSBpdGVtcy5wdXNoKCdSZWN5Y2xpbmcnKTsKICBpZiAoL2NvbXBvc3R8b3JnYW5pY3MvaS50ZXN0KHRleHQpKSBpdGVtcy5wdXNoKCdDb21wb3N0Jyk7CiAgcmV0dXJuIHsKICAgIG5leHRQaWNrdXA6IGRhdGVTdHIsCiAgICBpdGVtczogaXRlbXMubGVuZ3RoID8gaXRlbXMgOiBbJ1RyYXNoJ10sCiAgICBob2xpZGF5Tm90ZTogL3RoYW5rc2dpdmluZ3xob2xpZGF5L2kudGVzdCh0ZXh0KSA/ICdIb2xpZGF5IHNlcnZpY2UgY2hhbmdlcyDigJQgY2hlY2sgZW1haWwgZm9yIGRldGFpbHMnIDogbnVsbCwKICAgIHN1YmplY3Q6IGJvZHkuc3ViamVjdCB8fCBudWxsLAogIH07Cn0KCm1vZHVsZS5leHBvcnRzID0gYXN5bmMgZnVuY3Rpb24ocmVxLCByZXMpIHsKICBpZiAocmVxLm1ldGhvZCA9PT0gJ0dFVCcpIHsKICAgIC8vIERhc2hib2FyZCByZWFkOiBmZXRjaCB0aGUgc2F2ZWQgZmlsZSBmcm9tIEdpdEh1YiByYXcuCiAgICB0cnkgewogICAgICBjb25zdCByID0gYXdhaXQgZmV0Y2goYGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS8ke09XTkVSfS8ke1JFUE99L21haW4vY29sbGVjdGlvbi5qc29uYCwge3NpZ25hbDogQWJvcnRTaWduYWwudGltZW91dCg4MDAwKX0pOwogICAgICBpZiAoIXIub2spIHJldHVybiBzZW5kKHJlcywgNDA0LCB7ZXJyb3I6ICdObyBjb2xsZWN0aW9uIGRhdGEgc2F2ZWQgeWV0J30pOwogICAgICByZXR1cm4gc2VuZChyZXMsIDIwMCwgYXdhaXQgci5qc29uKCkpOwogICAgfSBjYXRjaCAoZSkgeyByZXR1cm4gc2VuZChyZXMsIDUwMiwge2Vycm9yOiAnVW5hYmxlIHRvIGxvYWQgY29sbGVjdGlvbiBkYXRhJ30pOyB9CiAgfQogIGlmIChyZXEubWV0aG9kICE9PSAnUE9TVCcpIHJldHVybiBzZW5kKHJlcywgNDA1LCB7ZXJyb3I6ICdNZXRob2Qgbm90IGFsbG93ZWQnfSk7CgogIC8vIFNlY3JldCBjaGVjaywgaWYgb25lIGlzIGNvbmZpZ3VyZWQgaW4gVmVyY2VsLgogIGNvbnN0IHNlY3JldCA9IHByb2Nlc3MuZW52LlRSQVNIX1dFQkhPT0tfU0VDUkVUOwogIGlmIChzZWNyZXQpIHsKICAgIGNvbnN0IGdpdmVuID0gcmVxLmhlYWRlcnNbJ3gtdHJhc2gtc2VjcmV0J107CiAgICBpZiAoIWdpdmVuIHx8ICFzZWN1cmVFcXVhbChnaXZlbiwgc2VjcmV0KSkgcmV0dXJuIHNlbmQocmVzLCA0MDEsIHtlcnJvcjogJ0ludmFsaWQgd2ViaG9vayBzZWNyZXQnfSk7CiAgfQogIC8vIERldGVybWluaXN0aWMgc2VuZGVyIGNoZWNrIG9ubHkg4oCUIG5vIEFJLCBubyBzdWJqZWN0IG1hdGNoaW5nLgogIGNvbnN0IGZyb20gPSBTdHJpbmcoKHJlcS5ib2R5ICYmIChyZXEuYm9keS5mcm9tIHx8IHJlcS5ib2R5LnNlbmRlcikpIHx8IHJlcS5oZWFkZXJzWyd4LW9yaWdpbmFsLXNlbmRlciddIHx8ICcnKTsKICBjb25zdCBib2R5VGV4dCA9IEpTT04uc3RyaW5naWZ5KHJlcS5ib2R5IHx8ICcnKTsKICBpZiAoIWZyb20udG9Mb3dlckNhc2UoKS5pbmNsdWRlcyhTRU5ERVIpICYmICFib2R5VGV4dC50b0xvd2VyQ2FzZSgpLmluY2x1ZGVzKFNFTkRFUikpIHsKICAgIHJldHVybiBzZW5kKHJlcywgNDAwLCB7ZXJyb3I6ICdTZW5kZXIgaXMgbm90IERlbnZlciBXYXN0ZSd9KTsKICB9CiAgY29uc3QgcGFyc2VkID0gcGFyc2VCb2R5KHJlcS5ib2R5IHx8IHt9KTsKICBpZiAoIXBhcnNlZCkgcmV0dXJuIHNlbmQocmVzLCA0MDAsIHtlcnJvcjogJ0NvdWxkIG5vdCBmaW5kIGEgcGlja3VwIGRhdGUgaW4gdGhlIGVtYWlsJ30pOwoKICBjb25zdCB0b2tlbiA9IHByb2Nlc3MuZW52LkdJVEhVQl9UT0tFTjsKICBpZiAoIXRva2VuKSByZXR1cm4gc2VuZChyZXMsIDUwMywge2Vycm9yOiAnR2l0SHViIHRva2VuIG5vdCBjb25maWd1cmVkIGluIFZlcmNlbCB5ZXQnLCBwYXJzZWR9KTsKICBjb25zdCBkYXRhID0gey4uLnBhcnNlZCwgdXBkYXRlZEF0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksIGFkZHJlc3M6ICc0MzU0IE4gQ29sdW1iaW5lIFN0LCBEZW52ZXInfTsKICB0cnkgewogICAgY29uc3QgYXBpID0gYGh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvJHtPV05FUn0vJHtSRVBPfS9jb250ZW50cy9jb2xsZWN0aW9uLmpzb25gOwogICAgY29uc3QgaGVhZGVycyA9IHtBdXRob3JpemF0aW9uOiAnQmVhcmVyICcgKyB0b2tlbiwgQWNjZXB0OiAnYXBwbGljYXRpb24vdm5kLmdpdGh1Yitqc29uJywgJ1VzZXItQWdlbnQnOiAnaG91c2Vob2xkLWh1Yi10cmFzaC13ZWJob29rJ307CiAgICBjb25zdCBjdXIgPSBhd2FpdCBmZXRjaChhcGksIHtoZWFkZXJzLCBzaWduYWw6IEFib3J0U2lnbmFsLnRpbWVvdXQoOTAwMCl9KTsKICAgIGNvbnN0IHNoYSA9IGN1ci5vayA/IChhd2FpdCBjdXIuanNvbigpKS5zaGEgOiB1bmRlZmluZWQ7CiAgICBjb25zdCBwdXQgPSBhd2FpdCBmZXRjaChhcGksIHttZXRob2Q6ICdQVVQnLCBoZWFkZXJzOiB7Li4uaGVhZGVycywgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJ30sIGJvZHk6IEpTT04uc3RyaW5naWZ5KHttZXNzYWdlOiAnVXBkYXRlIHRyYXNoIHBpY2t1cDogJyArIHBhcnNlZC5uZXh0UGlja3VwLCBjb250ZW50OiBCdWZmZXIuZnJvbShKU09OLnN0cmluZ2lmeShkYXRhLCBudWxsLCAyKSkudG9TdHJpbmcoJ2Jhc2U2NCcpLCAuLi4oc2hhID8ge3NoYX0gOiB7fSl9KSwgc2lnbmFsOiBBYm9ydFNpZ25hbC50aW1lb3V0KDkwMDApfSk7CiAgICBpZiAoIXB1dC5vaykgdGhyb3cgbmV3IEVycm9yKCdHaXRIdWIgdXBkYXRlIGZhaWxlZDogJyArIHB1dC5zdGF0dXMpOwogICAgcmV0dXJuIHNlbmQocmVzLCAyMDAsIHtvazogdHJ1ZSwgLi4uZGF0YX0pOwogIH0gY2F0Y2ggKGUpIHsgY29uc29sZS5lcnJvcignVHJhc2ggd2ViaG9vayBzYXZlIGZhaWxlZDonLCBlLm1lc3NhZ2UpOyByZXR1cm4gc2VuZChyZXMsIDUwMiwge2Vycm9yOiAnQ291bGQgbm90IHNhdmUgcGlja3VwIGRhdGUnLCBwYXJzZWR9KTsgfQp9Owo=
+// Trash collection webhook for Vercel: deterministic, no AI.
+// Receives a forwarded Denver trash email, checks the sender only,
+// parses the pickup date, and saves it to collection.json in GitHub
+// via the GitHub API (GITHUB_TOKEN env var in Vercel).
+// GET returns the current saved pickup for the dashboard.
+const {send, secureEqual} = require('./_auth');
+const OWNER = 'photographybyrobo-ai';
+const REPO = 'Home-Dashboard';
+const SENDER = 'denver-waste@remember.recollect.net';
+
+function parseBody(body) {
+  const text = [body.subject || '', body.text || '', body.body || '', body.html || ''].join('\n');
+  const m = text.match(/(?:picked up on|collection[^\\n]{0,40}?)\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/i)
+    || text.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/);
+  if (!m) return null;
+  const dateStr = m[0].replace(/^picked up on\s*/i, '').trim();
+  const items = [];
+  if (/trash/i.test(text)) items.push('Trash');
+  if (/recycl/i.test(text)) items.push('Recycling');
+  if (/compost|organics/i.test(text)) items.push('Compost');
+  return {
+    nextPickup: dateStr,
+    items: items.length ? items : ['Trash'],
+    holidayNote: /thanksgiving|holiday/i.test(text) ? 'Holiday service changes — check email for details' : null,
+    subject: body.subject || null,
+  };
+}
+
+module.exports = async function(req, res) {
+  if (req.method === 'GET') {
+    // Dashboard read: fetch the saved file from GitHub raw.
+    try {
+      const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/collection.json`, {signal: AbortSignal.timeout(8000)});
+      if (!r.ok) return send(res, 404, {error: 'No collection data saved yet'});
+      return send(res, 200, await r.json());
+    } catch (e) { return send(res, 502, {error: 'Unable to load collection data'}); }
+  }
+  if (req.method !== 'POST') return send(res, 405, {error: 'Method not allowed'});
+
+  // Secret check, if one is configured in Vercel.
+  const secret = process.env.TRASH_WEBHOOK_SECRET;
+  if (secret) {
+    const given = req.headers['x-trash-secret'];
+    if (!given || !secureEqual(given, secret)) return send(res, 401, {error: 'Invalid webhook secret'});
+  }
+  // Deterministic sender check only — no AI, no subject matching.
+  const from = String((req.body && (req.body.from || req.body.sender)) || req.headers['x-original-sender'] || '');
+  const bodyText = JSON.stringify(req.body || '');
+  if (!from.toLowerCase().includes(SENDER) && !bodyText.toLowerCase().includes(SENDER)) {
+    return send(res, 400, {error: 'Sender is not Denver Waste'});
+  }
+  const parsed = parseBody(req.body || {});
+  if (!parsed) return send(res, 400, {error: 'Could not find a pickup date in the email'});
+
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return send(res, 503, {error: 'GitHub token not configured in Vercel yet', parsed});
+  const data = {...parsed, updatedAt: new Date().toISOString(), address: '4354 N Columbine St, Denver'};
+  try {
+    const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/collection.json`;
+    const headers = {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'User-Agent': 'household-hub-trash-webhook'};
+    const cur = await fetch(api, {headers, signal: AbortSignal.timeout(9000)});
+    const sha = cur.ok ? (await cur.json()).sha : undefined;
+    const put = await fetch(api, {method: 'PUT', headers: {...headers, 'Content-Type': 'application/json'}, body: JSON.stringify({message: 'Update trash pickup: ' + parsed.nextPickup, content: Buffer.from(JSON.stringify(data, null, 2)).toString('base64'), ...(sha ? {sha} : {})}), signal: AbortSignal.timeout(9000)});
+    if (!put.ok) throw new Error('GitHub update failed: ' + put.status);
+    return send(res, 200, {ok: true, ...data});
+  } catch (e) { console.error('Trash webhook save failed:', e.message); return send(res, 502, {error: 'Could not save pickup date', parsed}); }
+};
