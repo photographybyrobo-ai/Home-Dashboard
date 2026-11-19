@@ -1,1 +1,16 @@
-{"days":[{"Rachel":null,"Robert":null,"date":"2026-11-13"},{"Rachel":null,"Robert":null,"date":"2026-11-14"},{"Rachel":null,"Robert":null,"date":"2026-11-15"},{"Rachel":null,"Robert":null,"date":"2026-11-16"},{"Rachel":null,"Robert":null,"date":"2026-11-17"},{"Rachel":null,"Robert":null,"date":"2026-11-18"},{"Rachel":null,"Robert":2326,"date":"2026-11-19"}],"goals":{"Rachel":8000,"Robert":6000},"source":"Google Sheets Daily Steps - Household Hub (1XYhNxFZhCCdWN9qDqV9eAxBAnJ3IXqVSLdIE3QMPRPI)","today":"2026-11-19","updatedAt":"2026-11-19T21:58:33Z"}
+{
+  "days": [
+    {"date": "2026-11-13", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-14", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-15", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-16", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-17", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-18", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
+    {"date": "2026-11-19", "Robert": 2326, "Rachel": null, "miles": {"Robert": 1.05, "Rachel": null}}
+  ],
+  "goals": {"Robert": 6000, "Rachel": 8000},
+  "milesPerStepFt": {"Robert": 2.375, "Rachel": 2.134},
+  "source": "Google Sheets Daily Steps - Household Hub (1XYhNxFZhCCdWN9qDqV9eAxBAnJ3IXqVSLdIE3QMPRPI)",
+  "today": "2026-11-19",
+  "updatedAt": "2026-11-19T22:06:13Z"
+}
