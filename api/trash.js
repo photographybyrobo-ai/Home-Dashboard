@@ -9,19 +9,37 @@ const REPO = 'Home-Dashboard';
 const SENDER = 'denver-waste@remember.recollect.net';
 
 function parseBody(body) {
-  const text = [body.subject || '', body.text || '', body.body || '', body.html || ''].join('\n');
-  const m = text.match(/(?:picked up on|collection[^\\n]{0,40}?)\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/i)
-    || text.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/);
+  const fullText = [body.subject || '', body.text || '', body.body || '', body.html || ''].join('\n');
+  const m = fullText.match(/(?:picked up on|collection[^\n]{0,40}?)\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/i)
+    || fullText.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/);
   if (!m) return null;
   const dateStr = m[0].replace(/^picked up on\s*/i, '').trim();
+  // Only the pickup list counts for recycling. The rest of the email
+  // mentions recycling in holiday notes / footers, so do NOT scan it.
+  // Trash is weekly, compost is normally weekly, recycling is bi-weekly:
+  // trash=yes does NOT mean recycling=yes.
+  const pickupStart = fullText.search(/will be picked up on/i);
+  let pickupText = fullText;
+  if (pickupStart >= 0) {
+    pickupText = fullText.slice(pickupStart);
+    const end = pickupText.search(/\n####|\nLearn where|\n#### /);
+    if (end > 0) pickupText = pickupText.slice(0, end);
+  }
+  const trash = /trash/i.test(pickupText);
+  const compost = /compost/i.test(pickupText);
+  const recycling = /recycl/i.test(pickupText);
   const items = [];
-  if (/trash/i.test(text)) items.push('Trash');
-  if (/recycl/i.test(text)) items.push('Recycling');
-  if (/compost|organics/i.test(text)) items.push('Compost');
+  if (trash) items.push('Trash');
+  if (compost) items.push('Compost');
+  if (recycling) items.push('Recycling');
+  const summary = items.join(' + ') + (recycling ? '' : ' — No Recycling');
   return {
     nextPickup: dateStr,
     items: items.length ? items : ['Trash'],
-    holidayNote: /thanksgiving|holiday/i.test(text) ? 'Holiday service changes — check email for details' : null,
+    trash, compost, recycling,
+    recyclingPickup: recycling,
+    summary,
+    holidayNote: /thanksgiving|holiday/i.test(fullText) ? 'Holiday service changes — check email for details' : null,
     subject: body.subject || null,
   };
 }
