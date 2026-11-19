@@ -113,7 +113,7 @@ body .screen>.theme-drawer[open] .theme-drawer-toggle{border-radius:7px}
 <section class="panel weather-panel" aria-label="Ten-day weather forecast"><div class="head"><h2>☁ Weather Forecast</h2><span class="kicker" id="weather-status">LIVE · 10-DAY OUTLOOK</span></div><div class="weather-settings"><form id="weather-zip-form"><label for="weather-zip">Forecast ZIP code</label><input id="weather-zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" required aria-label="US ZIP code"><button type="submit">Change location</button><button type="button" id="weather-denver-reset" aria-label="Switch weather back to Denver">Denver</button></form><span id="weather-location" class="muted"></span></div><div class="weather-current" id="weather-current" aria-live="polite">Loading weather…</div><div class="weather-days" id="weather-days"></div><div class="weather-disclaimer" id="weather-updated">Forecast: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · Location: Zippopotam.us</div></section>
 <div class="layout plants-relocated"><main class="main">
 <section class="panel"><div class="head"><h2>◈ Meal Plan</h2><span class="kicker">MEAL ALCHEMY</span></div><div id="meals"></div></section>
-<section class="panel"><div class="head"><h2>⌁ Daily Activity</h2><span class="kicker">7-DAY STEPS</span></div><div class="numbers"><div><div class="person">ROBO</div><div class="count teal">4,850</div><div class="muted">of 6,000 goal</div></div><div><div class="person">RACHEL</div><div class="count amber">6,200</div><div class="muted">of 8,000 goal</div></div></div><svg class="chart" viewBox="0 0 360 168" role="img" aria-label="Sample seven-day steps for Robo and Rachel"><g stroke="#355054" stroke-width="1" stroke-dasharray="3 5"><path d="M30 18H351 M30 52H351 M30 86H351 M30 120H351"/></g><g fill="#8eaaa6" font-size="10"><text x="23" y="21" text-anchor="end">9k</text><text x="23" y="55" text-anchor="end">6k</text><text x="23" y="89" text-anchor="end">3k</text><text x="23" y="123" text-anchor="end">0</text><text x="35" y="146" text-anchor="middle" class="activity-date" data-day-offset="-6">M</text><text x="86" y="146" text-anchor="middle" class="activity-date" data-day-offset="-5">T</text><text x="137" y="146" text-anchor="middle" class="activity-date" data-day-offset="-4">W</text><text x="188" y="146" text-anchor="middle" class="activity-date" data-day-offset="-3">T</text><text x="239" y="146" text-anchor="middle" class="activity-date" data-day-offset="-2">F</text><text x="290" y="146" text-anchor="middle" class="activity-date" data-day-offset="-1">S</text><text x="341" y="146" text-anchor="middle" class="activity-date" data-day-offset="0">S</text></g><polyline fill="none" stroke="#73d8c8" stroke-width="3" points="35,94 86,68 137,80 188,43 239,59 290,74 341,65"/><polyline fill="none" stroke="#e2b37b" stroke-width="3" points="35,72 86,79 137,53 188,64 239,31 290,46 341,49"/></svg><div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Robo</span><span><i class="dot" style="background:var(--amber)"></i>Rachel</span></div></section>
+<section class="panel"><div class="head"><h2>⌁ Daily Activity</h2><span class="kicker">7-DAY STEPS</span></div><div class="numbers"><div><div class="person">ROBO</div><div class="count teal" id="steps-robert">2,326</div><div class="muted">of 6,000 goal</div></div><div><div class="person">RACHEL</div><div class="count amber" id="steps-rachel">—</div><div class="muted" id="steps-rachel-note">No steps logged yet · of 8,000 goal</div></div></div><svg class="chart" viewBox="0 0 360 168" role="img" aria-label="Seven-day steps for Robo and Rachel"><g stroke="#355054" stroke-width="1" stroke-dasharray="3 5"><path d="M30 18H351 M30 52H351 M30 86H351 M30 120H351"/></g><g fill="#8eaaa6" font-size="10"><text x="23" y="21" text-anchor="end">9k</text><text x="23" y="55" text-anchor="end">6k</text><text x="23" y="89" text-anchor="end">3k</text><text x="23" y="123" text-anchor="end">0</text><text x="35" y="146" text-anchor="middle" class="activity-date" data-day-offset="-6">M</text><text x="86" y="146" text-anchor="middle" class="activity-date" data-day-offset="-5">T</text><text x="137" y="146" text-anchor="middle" class="activity-date" data-day-offset="-4">W</text><text x="188" y="146" text-anchor="middle" class="activity-date" data-day-offset="-3">T</text><text x="239" y="146" text-anchor="middle" class="activity-date" data-day-offset="-2">F</text><text x="290" y="146" text-anchor="middle" class="activity-date" data-day-offset="-1">S</text><text x="341" y="146" text-anchor="middle" class="activity-date" data-day-offset="0">S</text></g><g id="steps-lines"></g><g id="steps-dots"><circle cx="341" cy="94" r="4" fill="#73d8c8"/></g></svg><div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Robo</span><span><i class="dot" style="background:var(--amber)"></i>Rachel</span></div></section>
 </main></div><div class="full-width-sections"><section class="panel"><div class="head"><h2>▦ Calendar Preview</h2><span class="kicker">UPCOMING</span></div><div id="events"></div></section>
 <section class="panel"><div class="head"><h2>▤ Pantry Alerts</h2><span class="kicker">LOW / OUT ONLY</span></div><div id="pantry"></div></section>
 </div>
@@ -206,7 +206,39 @@ async function loadCollection(){
    const note=document.querySelector('#collection-note');if(note){const rec=data.recycling===true||data.recyclingPickup===true;note.textContent=rec?'Recycling: Yes \u2014 bi-weekly':'Recycling: No \u2014 bi-weekly';if(data.holidayNote)note.textContent+=' \u00b7 '+data.holidayNote;}
   }catch(e){const s=document.querySelector('#collection-status');if(s)s.textContent='SCHEDULE · UNAVAILABLE';}
  }
-async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await Promise.all([loadMeals(),loadCalendar(),loadCollection()]);}
+async function loadSteps(){
+  try{
+    let data=null;
+    try{const r=await fetch('/api/steps',{credentials:'same-origin',cache:'no-store'});if(r.ok)data=await r.json();}catch(e){}
+    if(!data){const r=await fetch('/steps.json',{cache:'no-store'});if(!r.ok)throw Error('Steps data unavailable');data=await r.json();}
+    const days=data.days||[];
+    const today=data.today||'2026-11-19';
+    const fmt=n=>Number(n).toLocaleString('en-US');
+    const findToday=()=>days.find(d=>d.date===today)||{};
+    const robertToday=findToday().Robert;
+    const rachelToday=findToday().Rachel;
+    const rEl=document.querySelector('#steps-robert');if(rEl)rEl.textContent=robertToday!=null?fmt(robertToday):'\u2014';
+    const aEl=document.querySelector('#steps-rachel');if(aEl)aEl.textContent=rachelToday!=null?fmt(rachelToday):'\u2014';
+    const rNote=document.querySelector('#steps-rachel-note');if(rNote)rNote.textContent=rachelToday!=null?'of 8,000 goal':'No steps logged yet \u00b7 of 8,000 goal';
+    const xs=[35,86,137,188,239,290,341];
+    const y=v=>Math.round(120-(Math.min(Math.max(v,0),9000)/9000)*102);
+    const lines=document.querySelector('#steps-lines');const dots=document.querySelector('#steps-dots');
+    if(lines)lines.innerHTML='';if(dots)dots.innerHTML='';
+    const NS='http://www.w3.org/2000/svg';
+    [['Robert','#73d8c8'],['Rachel','#e2b37b']].forEach(([person,color])=>{
+      let run=[];
+      const flush=()=>{if(run.length>=2){const pl=document.createElementNS(NS,'polyline');pl.setAttribute('fill','none');pl.setAttribute('stroke',color);pl.setAttribute('stroke-width','3');pl.setAttribute('points',run.map(p=>p.x+','+p.y).join(' '));lines.appendChild(pl);}run=[];};
+      days.forEach((d,i)=>{
+        const v=d[person];
+        if(v==null){flush();return;}
+        const pt={x:xs[i],y:y(v)};run.push(pt);
+        const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r','4');c.setAttribute('fill',color);dots.appendChild(c);
+      });
+      flush();
+    });
+  }catch(e){}
+}
+async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await Promise.all([loadMeals(),loadCalendar(),loadCollection(),loadSteps()]);}
 document.querySelector('#login-form').addEventListener('submit',async e=>{e.preventDefault();const error=document.querySelector('#login-error');error.textContent='';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});const d=await r.json();if(!r.ok)throw Error(d.error||'Unable to sign in');document.querySelector('#password').value='';await showDashboard();}catch(e){error.textContent=e.message;}});
 fetch('/api/login',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.authenticated)showDashboard();}).catch(()=>{});
 async function loadCalendar(){
@@ -323,7 +355,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document
   switch(key){
    case 'weather':return text('#weather-location')+' · '+text('#weather-current');
    case 'meals':return text('#meals .meal-title')||text('#meals')||'No meals available';
-   case 'activity':return 'Robo: '+text('.numbers .teal')+' steps · Rachel: '+text('.numbers .amber')+' steps (sample)';
+   case 'activity':{const r=text('#steps-robert');const a=text('#steps-rachel');return 'Robo: '+r+' steps · Rachel: '+(a==='—'?'no steps logged yet':a+' steps');}
    case 'calendar':return text('#events .event')||'No upcoming events';
    case 'pantry':return text('#pantry .stock')||'No pantry alerts';
    case 'collection':return text('.collection-content')||'Schedule unavailable';
