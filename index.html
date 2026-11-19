@@ -97,13 +97,15 @@ body .screen>.theme-drawer[open] .theme-drawer-toggle{border-radius:7px}
 #meals .meal.cooked{padding:8px 6px 24px}
 #meals .meal .cooked-badge{position:absolute;right:7px;bottom:6px;display:grid;place-items:center;width:19px;height:19px;padding:0;margin:0;font-size:13px;line-height:1;white-space:nowrap}
 @media(max-width:450px){#meals:has(.meal){gap:5px}#meals .meal{grid-template-columns:25px minmax(0,1fr);padding:6px 4px;column-gap:4px;font-size:10px}#meals .meal.cooked{padding:6px 4px 23px}#meals .meal .day{font-size:9px}#meals .meal .meal-title{font-size:10px}#meals .meal .cooked-badge{right:5px;bottom:5px}}
-/* Calendar preview: compact three-column, row-major event grid. */
+/* Calendar preview: three-column compact cards with clear text hierarchy. */
 #events:has(.event){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch}
-#events .event{min-width:0;margin:0;padding:9px 7px;border:1px solid var(--border);border-radius:8px;align-items:flex-start;overflow-wrap:anywhere}
-#events .event>div:last-child{min-width:0}
-#events .datebox{flex-shrink:0;min-width:56px;padding:5px 3px}#events .datebox strong{font-size:12px;white-space:nowrap}
-#events .event-title{line-height:1.35}
-@media(max-width:450px){#events:has(.event){gap:4px}#events .event{padding:6px 3px;gap:4px;font-size:10px;flex-direction:column}#events .datebox{min-width:49px;font-size:9px}#events .datebox strong{font-size:11px}}
+#events .event{display:flex;flex-direction:column;align-items:stretch;min-width:0;min-height:0;margin:0;padding:10px 9px;gap:0;border:1px solid var(--border);border-radius:9px;overflow-wrap:anywhere}
+#events .event .datebox{display:block;min-width:0;width:auto;margin:0 0 7px;padding:0;border:0;background:none;border-radius:0;color:var(--accent,#73d8c8);font-size:10px;font-weight:800;line-height:1.3;letter-spacing:.025em;text-align:left}
+#events .event .datebox strong{display:inline;font:inherit;color:inherit;white-space:normal}
+#events .event .event-detail{display:flex;flex:1;min-width:0;flex-direction:column;align-items:stretch}
+#events .event .event-title{font-size:12px;font-weight:700;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+#events .event .event-time{margin-top:auto;padding-top:7px;font-size:11px;line-height:1.25}
+@media(max-width:450px){#events:has(.event){gap:5px}#events .event{padding:8px 6px}#events .event .datebox{font-size:9px;margin-bottom:6px;letter-spacing:0}#events .event .event-title{font-size:11px}#events .event .event-time{font-size:10px;padding-top:6px}}
 </style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
 <details class="theme-drawer"><summary class="theme-drawer-toggle" aria-label="Open utility menu" title="Utility menu">⚙</summary><div class="theme-controls theme-drawer-content" role="group" aria-label="Dashboard appearance"><span class="theme-label">DISPLAY THEME</span><button type="button" class="theme-switch" data-theme="lcars" aria-pressed="false">Engage LCARS</button><button type="button" class="theme-switch" data-theme="black-alert" aria-pressed="false">Black Alert</button></div></details>
 <header class="header"><div class="tardis-console-art" aria-hidden="true"><div class="tardis-rotor"><span></span><span></span><span></span></div><div class="tardis-hex-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tardis-console-deck"><b></b><b></b><b></b><b></b><b></b><b></b></div></div><div><div class="eyebrow">HOUSEHOLD / COMMAND CENTER</div><h1>Home Overview</h1><div class="muted" id="today-date"></div></div><div class="clock-console"><div class="lcars-clock-caption" aria-hidden="true">CHRONOMETRIC DATA <span>01 / ACTIVE</span></div><div class="clock" id="clock"></div><div class="lcars-clock-progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="online">● SYSTEM ONLINE</div></div></header>
@@ -213,10 +215,10 @@ async function loadCalendar(){
    const number=new Intl.DateTimeFormat('en-US',{day:'2-digit',timeZone:event.allDay?'UTC':tz}).format(event.allDay?date:day);
    const month=new Intl.DateTimeFormat('en-US',{month:'short',timeZone:event.allDay?'UTC':tz}).format(event.allDay?date:day).toUpperCase();
    const row=document.createElement('div');row.className='event';
-   const badge=document.createElement('div');badge.className='datebox';badge.textContent=weekday;
+   const badge=document.createElement('div');badge.className='datebox';badge.textContent=weekday+' · ';
    const strong=document.createElement('strong');strong.textContent=month+' '+number;badge.append(strong);
-   const detail=document.createElement('div');const title=document.createElement('div');title.className='event-title';title.textContent=event.title;
-   const time=document.createElement('div');time.className='muted';time.textContent=event.allDay?'All day':new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:tz}).format(date);
+   const detail=document.createElement('div');detail.className='event-detail';const title=document.createElement('div');title.className='event-title';title.textContent=event.title;
+   const time=document.createElement('div');time.className='muted event-time';time.textContent=event.allDay?'All day':new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:tz}).format(date);
    detail.append(title,time);row.append(badge,detail);box.append(row);
   }
  }catch(e){box.replaceChildren();const note=document.createElement('div');note.className='muted';note.textContent=e.message;box.append(note);}
