@@ -1,1 +1,8 @@
-ewogICJuZXh0UGlja3VwIjogIk1vbiwgTm92IDE2LCAyMDI2IiwKICAiaXRlbXMiOiBbIlRyYXNoIl0sCiAgImhvbGlkYXlOb3RlIjogIkhvbGlkYXkgc2VydmljZSBjaGFuZ2VzIOKAlCBjaGVjayBlbWFpbCBmb3IgZGV0YWlscyIsCiAgInN1YmplY3QiOiAiQ29sbGVjdGlvbiBkYXkgaXMgdG9tb3Jyb3cgfCBUaGFua3NnaXZpbmcgSG9saWRheSBTZXJ2aWNlIGNoYW5nZXMiLAogICJhZGRyZXNzIjogIjQzNTQgTiBDb2x1bWJpbmUgU3QsIERlbnZlciIsCiAgInVwZGF0ZWRBdCI6ICIyMDI2LTExLTE5VDIwOjEyOjAwLjAwMFoiCn0K
+{
+  "nextPickup": "Mon, Nov 16, 2026",
+  "items": ["Trash"],
+  "holidayNote": "Holiday service changes — check email for details",
+  "subject": "Collection day is tomorrow | Thanksgiving Holiday Service changes",
+  "address": "4354 N Columbine St, Denver",
+  "updatedAt": "2026-11-19T20:12:00.000Z"
+}
