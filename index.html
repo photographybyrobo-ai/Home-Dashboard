@@ -320,8 +320,7 @@ function renderWeather(data,stale=false){
   day.append(desc,rain);days.append(day);
  });
  document.getElementById('weather-status').textContent=stale?'CACHED FORECAST':'LIVE · 10-DAY OUTLOOK';
- document.getElementById('weather-updated').textContent=(stale?'Offline · showing saved forecast · ':'Updated '+new Date(data.updatedAt).toLocaleString()+' · ')+'Weather: Open-Meteo · ZIP lookup: Zippopotam.us';
- const credit=document.createElement('a');credit.href='https://open-meteo.com/';credit.textContent=' Open-Meteo';credit.target='_blank';credit.rel='noopener noreferrer';document.getElementById('weather-updated').append(credit);
+ document.getElementById('weather-updated').textContent=(stale?'Offline · showing saved forecast · Last updated ':'Last updated ')+new Date(data.updatedAt).toLocaleString();
 }
 async function refreshWeather(zip=weatherZip){
  const seq=++weatherRequest;
