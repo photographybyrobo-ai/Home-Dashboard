@@ -1,17 +1,87 @@
 {
   "days": [
-    {"date": "2026-11-13", "Robert": 2835, "Rachel": null, "miles": {"Robert": 1.28, "Rachel": null}},
-    {"date": "2026-11-14", "Robert": null, "Rachel": null, "miles": {"Robert": null, "Rachel": null}},
-    {"date": "2026-11-15", "Robert": 10797, "Rachel": null, "miles": {"Robert": 4.86, "Rachel": null}},
-    {"date": "2026-11-16", "Robert": 3565, "Rachel": null, "miles": {"Robert": 1.6, "Rachel": null}},
-    {"date": "2026-11-17", "Robert": 5636, "Rachel": null, "miles": {"Robert": 2.54, "Rachel": null}},
-    {"date": "2026-11-18", "Robert": 5541, "Rachel": null, "miles": {"Robert": 2.49, "Rachel": null}},
-    {"date": "2026-11-19", "Robert": 4248, "Rachel": null, "miles": {"Robert": 1.91, "Rachel": null}},
-    {"date": "2026-11-20", "Robert": 391, "Rachel": null, "miles": {"Robert": 0.18, "Rachel": null}}
+    {
+      "date": "2026-11-13",
+      "Robert": 2835,
+      "Rachel": null,
+      "miles": {
+        "Robert": 1.28,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-14",
+      "Robert": null,
+      "Rachel": null,
+      "miles": {
+        "Robert": null,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-15",
+      "Robert": 10797,
+      "Rachel": null,
+      "miles": {
+        "Robert": 4.86,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "Robert": 3565,
+      "Rachel": null,
+      "miles": {
+        "Robert": 1.6,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "Robert": 5636,
+      "Rachel": null,
+      "miles": {
+        "Robert": 2.54,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "Robert": 5541,
+      "Rachel": null,
+      "miles": {
+        "Robert": 2.49,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "Robert": 4248,
+      "Rachel": null,
+      "miles": {
+        "Robert": 1.91,
+        "Rachel": null
+      }
+    },
+    {
+      "date": "2026-11-20",
+      "Robert": 854,
+      "Rachel": null,
+      "miles": {
+        "Robert": 0.38,
+        "Rachel": null
+      }
+    }
   ],
-  "goals": {"Robert": 6000, "Rachel": 8000},
-  "milesPerStepFt": {"Robert": 2.375, "Rachel": 2.134},
-  "source": "Google Sheets Daily Steps - Household Hub (1XYhNxFZhCCdWN9qDqV9eAxBAnJ3IXqVSLdIE3QMPRPI)",
+  "goals": {
+    "Robert": 6000,
+    "Rachel": 8000
+  },
+  "milesPerStepFt": {
+    "Robert": 2.375,
+    "Rachel": 2.134
+  },
+  "source": "Garmin Connect Personal API (no AI, no spreadsheet)",
   "today": "2026-11-20",
-  "updatedAt": "2026-11-20T15:21:21Z"
+  "updatedAt": "2026-11-20T16:26:31.973Z"
 }
