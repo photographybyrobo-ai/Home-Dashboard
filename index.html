@@ -211,7 +211,7 @@ async function loadSteps(){
     let data=null;
     try{const r=await fetch('/api/steps',{credentials:'same-origin',cache:'no-store'});if(r.ok)data=await r.json();}catch(e){}
     if(!data){const r=await fetch('/steps.json',{cache:'no-store'});if(!r.ok)throw Error('Steps data unavailable');data=await r.json();}
-    const days=data.days||[];
+    const days=(data.days||[]).slice(-7);
     const today=data.today||'2026-11-19';
     const fmt=n=>Number(n).toLocaleString('en-US');
     const findToday=()=>days.find(d=>d.date===today)||{};
@@ -220,7 +220,7 @@ async function loadSteps(){
     const rEl=document.querySelector('#steps-robert');if(rEl)rEl.textContent=robertToday!=null?fmt(robertToday):'\u2014';
     const aEl=document.querySelector('#steps-rachel');if(aEl)aEl.textContent=rachelToday!=null?fmt(rachelToday):'\u2014';
     const rNote=document.querySelector('#steps-rachel-note');if(rNote)rNote.textContent=rachelToday!=null?'of 8,000 goal':'No steps logged yet \u00b7 of 8,000 goal';
-    const xs=[35,86,137,188,239,290,341];
+    const xs=days.map((_,i)=>days.length>1?Math.round(35+i*(341-35)/(days.length-1)):188);
     const y=v=>Math.round(120-(Math.min(Math.max(v,0),9000)/9000)*102);
     const lines=document.querySelector('#steps-lines');const dots=document.querySelector('#steps-dots');const labels=document.querySelector('#steps-labels');
     if(lines)lines.innerHTML='';if(dots)dots.innerHTML='';if(labels)labels.innerHTML='';
@@ -233,7 +233,7 @@ async function loadSteps(){
       const flush=()=>{if(run.length>=2){const pl=document.createElementNS(NS,'polyline');pl.setAttribute('fill','none');pl.setAttribute('stroke',color);pl.setAttribute('stroke-width','3');pl.setAttribute('points',run.map(p=>p.x+','+p.y).join(' '));lines.appendChild(pl);}run=[];};
       days.forEach((d,i)=>{
         const v=d[person];
-        if(v==null){flush();return;}
+        if(v==null){return;}
         const pt={x:xs[i],y:y(v)};run.push(pt);
         const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r','4');c.setAttribute('fill',color);dots.appendChild(c);
         const mi=milesFor(d,person);
