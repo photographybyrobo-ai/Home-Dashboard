@@ -38,10 +38,15 @@ async function garminToken(apiKey) {
     {method: 'POST', headers: {Authorization: 'ApiKey ' + apiKey}, signal: AbortSignal.timeout(10000)}
   );
   if (!r.ok) throw new Error('Garmin token exchange failed: ' + r.status);
-  const j = await r.json();
-  const token = j.access_token || j.token || j.accessToken;
-  if (!token) throw new Error('Garmin token exchange returned no token');
-  return token;
+  // Garmin returns the token as a plain JWT string (eyJ...), not JSON.
+  const text = (await r.text()).trim().replace(/^"|"$/g, '');
+  if (text.startsWith('eyJ')) return text;
+  try {
+    const j = JSON.parse(text);
+    const token = j.access_token || j.token || j.accessToken;
+    if (token) return token;
+  } catch (e) { /* fall through */ }
+  throw new Error('Garmin token exchange returned no token');
 }
 
 async function garminSteps(token, start, end) {
