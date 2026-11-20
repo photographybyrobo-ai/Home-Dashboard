@@ -8,6 +8,25 @@ const OWNER = 'photographybyrobo-ai';
 const REPO = 'Home-Dashboard';
 const SENDER = 'denver-waste@remember.recollect.net';
 
+// Holiday changes: pull the actual text from the email's
+// "Holiday Service changes" section, instead of a generic note.
+// The heading is a line of its own (e.g. "#### Thanksgiving Holiday
+// Service changes"); the subject line is NOT a match, so it cannot
+// swallow the pickup list. Returns the cleaned section text.
+function parseHoliday(fullText) {
+  const lines = fullText.split('\n');
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^(?:####\s*)?(?:\w+\s+)?Holiday Service changes\s*$/.test(lines[i].trim())) start = i;
+  }
+  if (start < 0) return /thanksgiving|holiday/i.test(fullText) ? 'Holiday service changes — check email for details' : null;
+  let section = lines.slice(start + 1).join('\n');
+  const end = section.search(/\n####|\nLearn where/);
+  if (end >= 0) section = section.slice(0, end);
+  const t = section.replace(/\*\*/g, '').replace(/•\s*/g, '').replace(/\n+/g, ' ').replace(/\s+/g, ' ').replace(/Have a Happy Holiday!?\s*/i, '').trim();
+  return t ? t.slice(0, 800) : null;
+}
+
 function parseBody(body) {
   const fullText = [body.subject || '', body.text || '', body.body || '', body.html || ''].join('\n');
   const m = fullText.match(/(?:picked up on|collection[^\n]{0,40}?)\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2,8})\s+(\d{1,2}),\s+(\d{4})/i)
@@ -39,7 +58,7 @@ function parseBody(body) {
     trash, compost, recycling,
     recyclingPickup: recycling,
     summary,
-    holidayNote: /thanksgiving|holiday/i.test(fullText) ? 'Holiday service changes — check email for details' : null,
+    holidayNote: parseHoliday(fullText),
     subject: body.subject || null,
   };
 }
