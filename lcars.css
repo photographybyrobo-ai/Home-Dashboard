@@ -45,7 +45,7 @@ body{background:#030304;color:var(--text)}
 .weather-settings button:hover{background:var(--lcars-pink)}
 .weather-settings input:focus-visible,.theme-switch:focus-visible,.weather-settings button:focus-visible{outline:2px solid var(--lcars-pink);outline-offset:2px}
 .clock-console{position:relative;min-width:0;text-align:right;padding:4px 0 2px 10px}
-.lcars-clock-caption{display:flex;justify-content:flex-end;gap:9px;font-size:8px;letter-spacing:.09em;font-weight:800;color:var(--lcars-pink);white-space:nowrap}
+.lcars-clock-caption{display:flex;justify-content:flex-end;gap:9px;font-size:0.571rem;letter-spacing:.09em;font-weight:800;color:var(--lcars-pink);white-space:nowrap}
 .lcars-clock-caption span{color:var(--lcars-blue)}
 .clock-console .clock{font-variant-numeric:tabular-nums;letter-spacing:.045em}
 .lcars-clock-progress{display:flex;justify-content:flex-end;gap:3px;margin:5px 0 5px auto;max-width:180px;height:5px;overflow:hidden}
@@ -58,7 +58,7 @@ body{background:#030304;color:var(--text)}
 /* Explicitly visit both end segments; each position is held before jumping. */
 @keyframes lcars-clock-blip{0.00000%{left:0} 7.14286%{left:calc((100% - 21px) * 1 / 8 + 3px)} 14.28571%{left:calc((100% - 21px) * 2 / 8 + 6px)} 21.42857%{left:calc((100% - 21px) * 3 / 8 + 9px)} 28.57143%{left:calc((100% - 21px) * 4 / 8 + 12px)} 35.71429%{left:calc((100% - 21px) * 5 / 8 + 15px)} 42.85714%{left:calc((100% - 21px) * 6 / 8 + 18px)} 50.00000%{left:calc((100% - 21px) * 7 / 8 + 21px)} 57.14286%{left:calc((100% - 21px) * 6 / 8 + 18px)} 64.28571%{left:calc((100% - 21px) * 5 / 8 + 15px)} 71.42857%{left:calc((100% - 21px) * 4 / 8 + 12px)} 78.57143%{left:calc((100% - 21px) * 3 / 8 + 9px)} 85.71429%{left:calc((100% - 21px) * 2 / 8 + 6px)} 92.85714%{left:calc((100% - 21px) * 1 / 8 + 3px)} 100%{left:0}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress:after{animation:none;left:0}}
-@media(max-width:599px){.lcars-clock-caption{font-size:7px;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
+@media(max-width:599px){.lcars-clock-caption{font-size:0.500rem;gap:4px}.lcars-clock-progress{max-width:120px}.clock-console{padding-left:4px}}
 @media(prefers-reduced-motion:reduce){.lcars-clock-progress i{animation:none;opacity:.75}}
 
 /* Align the lower-left LCARS elbows with their rails at every viewport. */
