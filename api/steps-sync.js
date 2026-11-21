@@ -17,6 +17,7 @@
 //     Authorization: Bearer <CRON_SECRET>. If unset, the endpoint runs
 //     without that check (still GET-only).
 const {send, secureEqual} = require('./_auth');
+const {loadRefreshToken, saveRefreshToken} = require('./_oura-token');
 const OWNER = 'photographybyrobo-ai';
 const REPO = 'Home-Dashboard';
 const GARMIN_BASE = 'https://personal.connectapi.garmin.com';
@@ -79,16 +80,19 @@ async function garminSteps(token, start, end) {
 }
 
 async function ouraSteps(start, end) {
-  // Returns {stepsByDate, refreshTokenChanged} or throws. Caller decides
-  // whether a failure should fail the whole sync (it should not — Garmin
-  // data is still worth saving).
+  // Returns {stepsByDate, refreshTokenChanged, tokenSaved} or throws.
+  // Caller decides whether a failure should fail the whole sync (it
+  // should not — Garmin data is still worth saving).
+  // Oura refresh tokens are SINGLE-USE: every refresh returns a new one
+  // and invalidates the old, so the new token is saved (encrypted) for
+  // the next run — see api/_oura-token.js. Without that, sync #2 fails.
   const clientId = process.env.OURA_CLIENT_ID;
   const clientSecret = process.env.OURA_CLIENT_SECRET;
-  const refreshToken = process.env.OURA_REFRESH_TOKEN;
+  const refreshToken = await loadRefreshToken();
   if (!clientId || !clientSecret || !refreshToken) return null; // not set up yet
   const tr = await fetch(OURA_TOKEN_URL, {
     method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    headers: {'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'Household-Hub/1.0'},
     body: new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
@@ -101,9 +105,14 @@ async function ouraSteps(start, end) {
   const tokens = await tr.json();
   if (!tokens.access_token) throw new Error('Oura token refresh returned no access token');
   const refreshTokenChanged = !!(tokens.refresh_token && tokens.refresh_token !== refreshToken);
+  let tokenSaved = !refreshTokenChanged;
+  if (refreshTokenChanged) {
+    try { await saveRefreshToken(tokens.refresh_token); tokenSaved = true; }
+    catch (e) { console.error('Oura rotated token save failed:', e.message); tokenSaved = false; }
+  }
   const ar = await fetch(
     `${OURA_ACTIVITY_URL}?start_date=${start}&end_date=${end}`,
-    {headers: {Authorization: 'Bearer ' + tokens.access_token}, signal: AbortSignal.timeout(10000)}
+    {headers: {Authorization: 'Bearer ' + tokens.access_token, 'User-Agent': 'Household-Hub/1.0'}, signal: AbortSignal.timeout(10000)}
   );
   if (!ar.ok) throw new Error('Oura daily_activity fetch failed: ' + ar.status);
   const aj = await ar.json();
@@ -111,7 +120,7 @@ async function ouraSteps(start, end) {
   for (const row of (Array.isArray(aj.data) ? aj.data : [])) {
     if (row.day && typeof row.steps === 'number') stepsByDate[row.day] = row.steps;
   }
-  return {stepsByDate, refreshTokenChanged};
+  return {stepsByDate, refreshTokenChanged, tokenSaved};
 }
 
 async function githubGetJson(path) {
@@ -195,7 +204,7 @@ module.exports = async function(req, res) {
       updatedAt: new Date().toISOString(),
     };
     await githubPutJson('steps.json', data, 'Sync Garmin steps ' + start + ' to ' + today, sha);
-    return send(res, 200, {ok: true, start, end: today, steps: stepsByDate, rachelSteps: rachelByDate, ouraConfigured: !!oura, ouraError, refreshTokenChanged: !!(oura && oura.refreshTokenChanged), updatedAt: data.updatedAt});
+    return send(res, 200, {ok: true, start, end: today, steps: stepsByDate, rachelSteps: rachelByDate, ouraConfigured: !!oura, ouraError, refreshTokenChanged: !!(oura && oura.refreshTokenChanged), ouraTokenSaved: !!(oura && oura.tokenSaved), updatedAt: data.updatedAt});
   } catch (e) {
     console.error('Steps sync failed:', e.message);
     return send(res, 502, {error: 'Steps sync failed: ' + e.message});

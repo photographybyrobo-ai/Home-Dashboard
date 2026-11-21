@@ -1,7 +1,7 @@
 // Oura OAuth2 for Vercel: deterministic, no AI. ONE function for both
 // steps of the handshake, to stay under Vercel Hobby's 12-function limit.
 //   GET /api/oura                    -> redirects Rachel to Oura to approve
-//                                      daily_activity (steps only)
+//                                      daily (sleep/activity/readiness summaries — includes steps)
 //   GET /api/oura?step=callback     -> Oura redirects back here with a code;
 //                                      exchanges it and shows the refresh
 //                                      token ONCE, so Robert can save it in
@@ -14,6 +14,7 @@
 //   https://home-dashboard-flame.vercel.app/api/oura?step=callback
 // Env vars in Vercel: OURA_CLIENT_ID, OURA_CLIENT_SECRET.
 const {send, sign, secureEqual} = require('./_auth');
+const {saveRefreshToken} = require('./_oura-token');
 const crypto = require('node:crypto');
 const REDIRECT_URI = 'https://home-dashboard-flame.vercel.app/api/oura?step=callback';
 const TOKEN_URL = 'https://api.ouraring.com/oauth/token';
@@ -51,7 +52,7 @@ module.exports = async function(req, res) {
       + '?response_type=code'
       + '&client_id=' + encodeURIComponent(clientId)
       + '&redirect_uri=' + encodeURIComponent(REDIRECT_URI)
-      + '&scope=' + encodeURIComponent('daily_activity')
+      + '&scope=' + encodeURIComponent('daily')
       + '&state=' + encodeURIComponent(state);
     res.statusCode = 302;
     res.setHeader('Location', url);
@@ -93,10 +94,23 @@ module.exports = async function(req, res) {
       return html(res, 502, 'Could not finish connecting', '<p>' + esc(e.message) + ' — try the authorize step again.</p>');
     }
     if (!tokens.refresh_token) return html(res, 502, 'No refresh token from Oura', '<p>Oura did not return a refresh token. Try the authorize step again.</p>');
-    return html(res, 200, 'Rachel\u2019s Oura is connected',
-      '<p>Save this refresh token in Vercel as <b>OURA_REFRESH_TOKEN</b> (Production), then redeploy. It is shown here once only — do not paste it in chat or share a screenshot of it.</p>'
+    // Oura refresh tokens are single-use, so the token must be saved
+    // where the sync can read it next time. It is stored encrypted in
+    // GitHub (see api/_oura-token.js) — never shown on screen.
+    let saved = false;
+    let saveError = null;
+    try { await saveRefreshToken(tokens.refresh_token); saved = true; }
+    catch (e) { saveError = e.message; console.error('Oura token save failed:', e.message); }
+    if (saved) {
+      return html(res, 200, 'Rachel\u2019s Oura is connected',
+        '<p>Done — her login is saved (encrypted) and the dashboard will pull her steps in the daily sync. Scopes granted: ' + esc(tokens.scope || 'daily') + '. You can test it now from the dashboard\u2019s Sync now button.</p>');
+    }
+    // Fallback if the encrypted save failed: show the token once, so
+    // Robert can save it in Vercel as OURA_REFRESH_TOKEN instead.
+    return html(res, 200, 'Rachel\u2019s Oura is connected — one manual step',
+      '<p>Automatic save failed (' + esc(saveError || 'unknown') + '). Save this refresh token in Vercel as <b>OURA_REFRESH_TOKEN</b> (Production), then redeploy. It is shown here once only — do not paste it in chat or share a screenshot of it.</p>'
       + '<p><code style="word-break:break-all;background:#eee;padding:10px;display:block">' + esc(tokens.refresh_token) + '</code></p>'
-      + '<p>Scopes granted: ' + esc(tokens.scope || 'daily_activity') + '. Next: add the token in Vercel, redeploy, then visit /api/steps-sync to test the first pull.</p>');
+      + '<p>Scopes granted: ' + esc(tokens.scope || 'daily') + '.</p>');
   }
 
   return send(res, 400, {error: 'Unknown step'});
