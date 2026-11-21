@@ -306,12 +306,17 @@ async function loadSteps(){
     const milesFor=(d,person)=>{if(d.miles&&d.miles[person]!=null)return d.miles[person];if(d[person]==null)return null;return Math.round(d[person]*milesFt[person]/5280*100)/100;};
     const rmEl=document.querySelector('#steps-robert-miles');if(rmEl)rmEl.textContent=todayMiles('Robert');
     const amEl=document.querySelector('#steps-rachel-miles');if(amEl)amEl.textContent=todayMiles('Rachel');
-    // Labels: step total above each dot, miles below it. Goal labels are
-    // steps only, never miles. All labels are collected first, then any
-    // that overlap are nudged down until clear.
+    // Labels: a two-line stack above each dot — step total on top, miles
+    // just under it (dots near the top flip the stack below the dot).
+    // Goal numbers are NOT labelled on the chart: the gray goal dots mark
+    // where the goal is, and the exact goal in steps is in the panel above
+    // ("of 3,720 goal"). Six labels could not fit in one column, which is
+    // what piled the goal numbers onto the date labels. All labels are
+    // collected first, then any that overlap are nudged down until clear,
+    // never below the date labels.
     const chartLabels=[];
     [['Robert','#73d8c8'],['Rachel','#e2b37b']].forEach(([person,color])=>{
-      let run=[];let lastGoalPt=null;
+      let run=[];
       const flush=()=>{if(run.length>=2){const pl=document.createElementNS(NS,'polyline');pl.setAttribute('fill','none');pl.setAttribute('stroke',color);pl.setAttribute('stroke-width','3');pl.setAttribute('points',run.map(p=>p.x+','+p.y).join(' '));lines.appendChild(pl);}run=[];};
       days.forEach((d,i)=>{
         const v=d[person];
@@ -319,13 +324,13 @@ async function loadSteps(){
         const pt={x:xs[i],y:y(v)};run.push(pt);
         const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r','4');c.setAttribute('fill',color);dots.appendChild(c);
         const goal=person==='Robert'?(d.goal!=null?d.goal:robertGoal):rachelGoal;
-        if(goal!=null){const gc=document.createElementNS(NS,'circle');gc.setAttribute('cx',pt.x);gc.setAttribute('cy',y(goal));gc.setAttribute('r','4');gc.setAttribute('fill','none');gc.setAttribute('stroke','#8a9a9e');gc.setAttribute('stroke-width','2');dots.appendChild(gc);lastGoalPt={x:pt.x,y:y(goal),goal};}
+        if(goal!=null){const gc=document.createElementNS(NS,'circle');gc.setAttribute('cx',pt.x);gc.setAttribute('cy',y(goal));gc.setAttribute('r','4');gc.setAttribute('fill','none');gc.setAttribute('stroke','#8a9a9e');gc.setAttribute('stroke-width','2');dots.appendChild(gc);}
         const mi=milesFor(d,person);
-        chartLabels.push({x:pt.x,y:Math.max(pt.y-10,9),text:fmt(v),fill:color,size:10,weight:'700',anchor:'middle'});
-        if(mi!=null)chartLabels.push({x:pt.x,y:pt.y+16,text:mi.toFixed(2)+' mi',fill:color,size:8,weight:'400',anchor:'middle',opacity:'0.75'});
+        const above=pt.y>=40;
+        chartLabels.push({x:pt.x,y:above?Math.max(pt.y-22,9):pt.y+14,text:fmt(v),fill:color,size:10,weight:'700',anchor:'middle'});
+        if(mi!=null)chartLabels.push({x:pt.x,y:above?Math.max(pt.y-10,20):pt.y+26,text:mi.toFixed(2)+' mi',fill:color,size:8,weight:'400',anchor:'middle',opacity:'0.75'});
       });
       flush();
-      if(lastGoalPt)chartLabels.push({x:lastGoalPt.x,y:lastGoalPt.y+16,text:fmt(lastGoalPt.goal)+' goal',fill:'#8a9a9e',size:9,weight:'700',anchor:'middle'});
     });
     if(labels){
       const lw=l=>l.text.length*l.size*0.62;
@@ -334,7 +339,7 @@ async function loadSteps(){
         let moved=false;
         for(let a=0;a<chartLabels.length;a++)for(let b=a+1;b<chartLabels.length;b++){
           const A=box(chartLabels[a]),B=box(chartLabels[b]);
-          if(A.x1<B.x2&&B.x1<A.x2&&A.y1<B.y2&&B.y1<A.y2){chartLabels[b].y=Math.min(chartLabels[b].y+12,205);moved=true;}
+          if(A.x1<B.x2&&B.x1<A.x2&&A.y1<B.y2&&B.y1<A.y2){chartLabels[b].y=Math.min(chartLabels[b].y+12,188);moved=true;}
         }
         if(!moved)break;
       }
