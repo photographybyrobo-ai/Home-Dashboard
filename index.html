@@ -137,51 +137,14 @@ html[data-dashboard-theme="black-alert"] .sync-black{display:block;position:rela
 .header .theme-drawer .theme-switch{margin:0;padding:6px 9px;font-size:11px}
 .header .theme-drawer .theme-drawer-toggle:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 
-/* Portrait wall display: 1080x1920 viewed at 2-3 ft. Larger type and roomier
-   spacing; phones and portrait tablets are unaffected. */
+/* Portrait wall display: 19" 1080x1920 monitor viewed at under 2 ft.
+   Base text stays 14px -- only roomier spacing to fill the tall screen.
+   Phones and portrait tablets are unaffected. */
 @media (orientation: portrait) and (min-width: 1000px){
- body{font-size:16px}
  body .screen{gap:18px;padding:24px}
- body .screen>.header h1{font-size:40px}
- body .screen .clock{font-size:27px}
- body .screen .eyebrow{font-size:12px}
- body .screen .online{font-size:11px}
  body .screen .panel{padding:18px}
- body .screen .panel h2{font-size:16px}
  body .screen .head{min-height:40px;padding:10px 14px}
- body .screen .kicker{font-size:10px}
- body .screen .muted{font-size:14px}
- body .screen .meal,body .screen .event,body .screen .stock{font-size:14px;padding:11px 0}
- body .screen .day,body .screen .datebox{font-size:12px;min-width:48px;padding:8px}
- body .screen .datebox strong{font-size:19px}
- body .screen .count{font-size:clamp(23px,4vw,33px)}
- body .screen .person{font-size:11px}
- body .screen .weather-days{gap:10px}
- body .screen .weather-day{padding:14px 6px}
- body .screen .weather-day .weather-name{font-size:13px}
- body .screen .weather-day .weather-icon{font-size:30px}
- body .screen .weather-day .weather-icon svg{width:32px;height:32px}
- body .screen .weather-day .weather-icon span{font-size:28px}
- body .screen .weather-day .weather-temps{font-size:15px}
- body .screen .weather-day .weather-condition{font-size:10px}
- body .screen .weather-day .weather-rain{font-size:11px}
- body .screen .weather-day .weather-freeze{font-size:11px}
- body .screen .collection-content .value{font-size:17px}
- body .screen .collection-content .label{font-size:11px}
- body .screen .collection-large,body .screen .collection-treecycle{font-size:13px}
- body .screen .seasonal-alert .alert-title{font-size:15px}
- body .screen .seasonal-alert .alert-body{font-size:12px}
- body .screen .footer .value{font-size:15px}
- body .screen .footer .label,body .screen .footnote{font-size:11px}
- body .screen .legend{font-size:12px}
- body .screen .pet-name,body .screen .plant-name{font-size:12px}
- body .screen .status-row{font-size:10px}
- body .screen .status{font-size:14px}
- body .screen .plant-note{font-size:11px}
- body .screen .theme-switch{font-size:12px;padding:8px 14px}
- body .screen .weather-settings label{font-size:12px}
- body .screen .weather-settings input{width:90px;font-size:14px}
- body .screen .weather-settings button{font-size:13px;padding:8px 12px}
+ body .screen .meal,body .screen .event,body .screen .stock{padding:11px 0}
 }
 </style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
 <header class="header"><div class="tardis-console-art" aria-hidden="true"><div class="tardis-rotor"><span></span><span></span><span></span></div><div class="tardis-hex-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tardis-console-deck"><b></b><b></b><b></b><b></b><b></b><b></b></div></div><div><h1 id="today-date"></h1></div><div class="clock-console"><div class="clock" id="clock"></div><div class="lcars-clock-progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="online">● SYSTEM ONLINE</div><details class="theme-drawer"><summary class="theme-drawer-toggle" aria-label="Open utility menu" title="Utility menu">⚙</summary><div class="theme-controls theme-drawer-content" role="group" aria-label="Dashboard appearance"><span class="theme-label">DISPLAY THEME</span><button type="button" class="theme-switch" data-theme="lcars" aria-pressed="false">Engage LCARS</button><button type="button" class="theme-switch" data-theme="black-alert" aria-pressed="false">Black Alert</button></div></details></div></header>
