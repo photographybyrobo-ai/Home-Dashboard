@@ -252,18 +252,19 @@ async function loadTreecycle(){
 async function loadSeasonalAlerts(){
   const box=document.querySelector('#seasonal-alert');if(!box)return;
   let d=null;try{const r=await fetch('/api/seasonal-alerts',{credentials:'same-origin',cache:'no-store'});if(r.ok)d=await r.json();}catch(e){}
-  if(!d||!d.active||!d.registrationOpen){box.hidden=true;return;}
+  if(!d||!d.active){box.hidden=true;return;}
   const year=d.year||new Date().getFullYear();
   if(localStorage.getItem('compost-giveaway-'+year+'-dismissed')){box.hidden=true;return;}
   box.dataset.programYear=year;
   const title=document.querySelector('#seasonal-alert-title');
   const body=document.querySelector('#seasonal-alert-body');
-  if(title)title.textContent='Free mulch & compost giveaway \u2014 registration is open';
+  const likely=!d.registrationOpen&&d.registrationLikely;
+  if(title)title.textContent=likely?'Free mulch & compost giveaway \u2014 registration may be open':'Free mulch & compost giveaway \u2014 registration is open';
   if(body){body.innerHTML='';
     const t=document.createElement('span');
-    t.textContent=(d.date?("Denver's spring giveaway is "+d.date+'. '):"Denver's spring giveaway is coming up. ")+'Compost is 5 free gallons with registration required, pickup at Central Platte Campus. Mulch is dig-your-own at four sites. ';
+    t.textContent=(likely?"Denver's compost page has changed — check the registration page to confirm. ":'')+(d.date?("Denver's spring giveaway is "+d.date+'. '):"Denver's spring giveaway is coming up. ")+'Compost is 5 free gallons with registration required, pickup at Central Platte Campus. Mulch is dig-your-own at four sites. ';
     body.appendChild(t);
-    const a=document.createElement('a');a.href=d.link||'https://denvergov.org/mulch';a.target='_blank';a.rel='noopener noreferrer';a.textContent='Register at Denver\u2019s Mulch page';body.appendChild(a);}
+    const a=document.createElement('a');a.href=d.link||'https://denvergov.org/mulch';a.target='_blank';a.rel='noopener noreferrer';a.textContent=likely?'Check Denver\u2019s registration page':'Register at Denver\u2019s Mulch page';body.appendChild(a);}
   box.hidden=false;
  }
 document.querySelector('#seasonal-alert-close')?.addEventListener('click',()=>{
