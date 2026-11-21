@@ -36,14 +36,6 @@ function itemsFromSummary(summary) {
   return items.length ? items : ['Trash'];
 }
 
-function cleanDescription(desc) {
-  if (!desc) return null;
-  const t = desc.replace(/\\n/g, ' ').replace(/\\,/g, ',').replace(/\\\;/g, ';')
-    .replace(/\*/g, '').replace(/Have a Happy Holiday!?\s*/i, '').replace(/\s+/g, ' ').trim();
-  if (!/thanksgiving|holiday|suspended|closed/i.test(t)) return null;
-  return t.slice(0, 800) || null;
-}
-
 function parseFeed(ics) {
   // Unfold ICS lines: a line starting with a space continues the previous.
   const unfolded = ics.replace(/\r?\n /g, '');
@@ -92,7 +84,6 @@ module.exports = async function(req, res) {
     compost: items.includes('Compost'),
     recycling: items.includes('Recycling'),
     recyclingPickup: items.includes('Recycling'),
-    holidayNote: cleanDescription(next.description),
     largeItems,
     updatedAt: new Date().toISOString(),
     address: '4354 N Columbine St, Denver',
