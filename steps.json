@@ -4,6 +4,7 @@
       "date": "2026-11-13",
       "Robert": 2835,
       "Rachel": null,
+      "goal": 3940,
       "miles": {
         "Robert": 1.28,
         "Rachel": null
@@ -13,6 +14,7 @@
       "date": "2026-11-14",
       "Robert": null,
       "Rachel": null,
+      "goal": 6000,
       "miles": {
         "Robert": null,
         "Rachel": null
@@ -22,6 +24,7 @@
       "date": "2026-11-15",
       "Robert": 10797,
       "Rachel": null,
+      "goal": 3720,
       "miles": {
         "Robert": 4.86,
         "Rachel": null
@@ -31,6 +34,7 @@
       "date": "2026-11-16",
       "Robert": 3565,
       "Rachel": null,
+      "goal": 4430,
       "miles": {
         "Robert": 1.6,
         "Rachel": null
@@ -40,6 +44,7 @@
       "date": "2026-11-17",
       "Robert": 5636,
       "Rachel": null,
+      "goal": 4350,
       "miles": {
         "Robert": 2.54,
         "Rachel": null
@@ -49,6 +54,7 @@
       "date": "2026-11-18",
       "Robert": 5541,
       "Rachel": null,
+      "goal": 4480,
       "miles": {
         "Robert": 2.49,
         "Rachel": null
@@ -58,6 +64,7 @@
       "date": "2026-11-19",
       "Robert": 4248,
       "Rachel": null,
+      "goal": 4700,
       "miles": {
         "Robert": 1.91,
         "Rachel": null
@@ -67,6 +74,7 @@
       "date": "2026-11-20",
       "Robert": 3497,
       "Rachel": null,
+      "goal": 3720,
       "miles": {
         "Robert": 1.57,
         "Rachel": null
@@ -74,7 +82,7 @@
     }
   ],
   "goals": {
-    "Robert": 6000,
+    "Robert": 3720,
     "Rachel": 8000
   },
   "milesPerStepFt": {
@@ -83,5 +91,5 @@
   },
   "source": "Garmin Connect Personal API (no AI, no spreadsheet)",
   "today": "2026-11-20",
-  "updatedAt": "2026-11-21T01:25:08.260Z"
+  "updatedAt": "2026-11-21T02:02:05.713Z"
 }
