@@ -178,6 +178,7 @@ module.exports = async function(req, res) {
     for (const d of (cur && cur.days) || []) prevDays[d.date] = d;
 
     const days = [];
+    let lastGoal = null;
     for (let i = 0; i < DAYS; i++) {
       const date = addDays(start, i);
       const prev = prevDays[date] || {};
@@ -186,9 +187,12 @@ module.exports = async function(req, res) {
       const robert = typeof steps === 'number' ? steps : (prev.Robert ?? null);
       const rachel = typeof rachelByDate[date] === 'number' ? rachelByDate[date] : (prev.Rachel ?? null);
       // Goal comes from Garmin's stepGoal for that day; fall back to the
-      // previously stored goal, then to 6000 if Garmin never sent one.
+      // previously stored goal for that date, then to the last known goal
+      // from an earlier day (so a brand-new today is not 6000 just because
+      // Garmin has not set today's auto goal yet), then to 6000.
       const goal = (row && typeof row.goal === 'number') ? row.goal
-        : (typeof prev.goal === 'number' ? prev.goal : DEFAULT_GOAL);
+        : (typeof prev.goal === 'number' ? prev.goal : (lastGoal ?? DEFAULT_GOAL));
+      if (typeof goal === 'number') lastGoal = goal;
       days.push({
         date,
         Robert: robert,
