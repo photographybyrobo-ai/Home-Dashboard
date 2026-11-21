@@ -25,7 +25,10 @@ const OURA_TOKEN_URL = 'https://api.ouraring.com/oauth/token';
 const OURA_ACTIVITY_URL = 'https://api.ouraring.com/v2/usercollection/daily_activity';
 const MILES_PER_STEP_FT = 2.375;
 const RACHEL_MILES_PER_STEP_FT = 2.134; // Rachel, 5'2"
-const RACHEL_GOAL = 8000; // Oura daily_activity has no step goal
+const RACHEL_GOAL = 8000; // Fallback only. Oura daily_activity has no step
+// goal, so Rachel's goal is a rolling average instead: each day, the
+// average of her steps over the previous 7 days (Robert's choice,
+// Nov 20, 2026). Recomputed on every sync.
 const DEFAULT_GOAL = 6000; // fallback only when Garmin returns no stepGoal
 const DAYS = 8; // today + previous 7 days
 
@@ -195,9 +198,16 @@ module.exports = async function(req, res) {
       });
     }
     const todayGoal = (days[days.length - 1] && days[days.length - 1].goal) || DEFAULT_GOAL;
+    // Rachel's goal: average of her steps over the 7 days before today
+    // (today is still in progress, so it is excluded). Falls back to
+    // 8,000 if there is no prior data yet.
+    const rachelPrior = days.slice(0, -1).map(d => d.Rachel).filter(v => typeof v === 'number');
+    const rachelGoal = rachelPrior.length
+      ? Math.round(rachelPrior.reduce((a, b) => a + b, 0) / rachelPrior.length)
+      : RACHEL_GOAL;
     const data = {
       days,
-      goals: {Robert: todayGoal, Rachel: RACHEL_GOAL},
+      goals: {Robert: todayGoal, Rachel: rachelGoal},
       milesPerStepFt: {Robert: 2.375, Rachel: 2.134},
       source: 'Garmin Connect + Oura API (no AI, no spreadsheet)',
       today,
