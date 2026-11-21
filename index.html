@@ -227,7 +227,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCookingRecipe()
 async function loadCollection(){
   try{
    let data=null;
-   try{const r=await fetch('/api/trash-feed',{credentials:'same-origin',cache:'no-store'});if(r.ok)data=await r.json();}catch(e){}
+   try{const r=await fetch('/api/trash?feed=1',{credentials:'same-origin',cache:'no-store'});if(r.ok)data=await r.json();}catch(e){}
    if(!data){try{const r=await fetch('/api/trash',{credentials:'same-origin',cache:'no-store'});if(r.ok)data=await r.json();}catch(e){}}
    if(!data){const r=await fetch('/collection.json',{cache:'no-store'});if(!r.ok)throw Error('Collection data unavailable');data=await r.json();}
    const next=document.querySelector('#collection-next');if(next&&data.nextPickup)next.textContent=data.nextPickup;
@@ -332,7 +332,6 @@ async function syncStepsNow(){
  if(btn)btn.disabled=true;if(overlay)overlay.hidden=false;if(text)text.textContent='Updating activity tracker…';if(sub)sub.textContent='Pulling your latest steps from Garmin and Oura.';
  try{
   const r=await fetch('/api/steps-sync',{credentials:'same-origin',cache:'no-store'});if(!r.ok)throw new Error('Sync failed');
-  try{await fetch('/api/oura-sync',{credentials:'same-origin',cache:'no-store'});}catch(e){/* Oura not set up yet — Garmin sync still counts */}
   let fresh=false;
   for(let i=0;i<30;i++){
    await new Promise(res=>setTimeout(res,10000));
