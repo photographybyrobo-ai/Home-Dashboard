@@ -135,8 +135,21 @@ async function feedHandler(req, res) {
 module.exports = async function(req, res) {
   if (req.method === 'GET' && req.query && req.query.feed === '1') return feedHandler(req, res);
   if (req.method === 'GET') {
-    // Dashboard read: fetch the saved file from GitHub raw.
+    // Dashboard read: GitHub API first (authoritative, fresh — the raw
+    // CDN serves Vercel's edge a stale copy for 30+ minutes after a save,
+    // same as steps.json in Nov 2026), raw as fallback.
     try {
+      const token = process.env.GITHUB_TOKEN;
+      if (token) {
+        const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/collection.json`, {
+          headers: {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'User-Agent': 'household-hub-trash'},
+          signal: AbortSignal.timeout(8000),
+        });
+        if (r.ok) {
+          const j = await r.json();
+          return send(res, 200, JSON.parse(Buffer.from(j.content, 'base64').toString('utf8')));
+        }
+      }
       const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/collection.json`, {signal: AbortSignal.timeout(8000)});
       if (!r.ok) return send(res, 404, {error: 'No collection data saved yet'});
       return send(res, 200, await r.json());
