@@ -46,8 +46,9 @@
 @media(min-width:900px){
  body .screen{column-gap:16px;row-gap:16px}
 }
-@media(min-width:1150px){
- body .screen .weather-days{grid-template-columns:repeat(10,minmax(0,1fr))}
+@media(min-width:900px){
+ body .screen .weather-days{grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+ body .screen .weather-day{padding:8px 2px}
 }
 
 /* In-flow, expandable appearance drawer; never overlays dashboard content. */
@@ -150,13 +151,13 @@ html[data-dashboard-theme="black-alert"] .sync-black{display:block;position:rela
   const buttons=[...document.querySelectorAll('.theme-switch[data-theme]')];
   const valid=['lcars','black-alert'];
   function applyTheme(theme){
-    const selected=valid.includes(theme)?theme:'black-alert';
+    const selected=valid.includes(theme)?theme:'lcars';
     Object.entries(styles).forEach(([name,sheet])=>{sheet.disabled=name!==selected;});
     buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===selected)));
     document.documentElement.dataset.dashboardTheme=selected;
   }
-  let saved='black-alert';
-  try{saved=localStorage.getItem('household-dashboard-theme')||'black-alert';}catch(e){}
+  let saved='lcars';
+  try{saved=localStorage.getItem('household-dashboard-theme')||'lcars';}catch(e){}
   applyTheme(saved);
   buttons.forEach(button=>button.addEventListener('click',()=>{
     const next=button.dataset.theme;

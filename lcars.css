@@ -1,9 +1,9 @@
 /* LCARS / TNG-inspired: continuous matching vertical and horizontal rails. */
-:root{--bg:#050506;--panel:#08090c;--border:#514c54;--text:#f0d9bf;--muted:#b1a5a5;--teal:#9aafd0;--amber:#f2ae78;--red:#da867a;--lcars-peach:#e7a77c;--lcars-blue:#94a9ca;--lcars-lilac:#b3a0b9;--lcars-pink:#d69bb6}
+:root{--bg:#050506;--panel:#08090c;--border:#514c54;--text:#ffcc99;--muted:#b1a5a5;--teal:#99ccff;--amber:#ff9966;--red:#cc6666;--lcars-peach:#ffcc99;--lcars-blue:#99ccff;--lcars-lilac:#cc99cc;--lcars-pink:#cc6699;--lcars-orange:#ff9900}
 body{background:#030304;color:var(--text)}
-.screen{position:relative;isolation:isolate;background:#050506;gap:12px;padding:18px 15px 18px 27px;border:0;border-left:13px solid var(--lcars-peach);border-radius:0}
-.screen:before{content:"";position:absolute;top:0;left:-13px;width:13px;height:100%;background:linear-gradient(to bottom,var(--lcars-peach) 0 16%,#050506 16% 17%,var(--lcars-blue) 17% 45%,#050506 45% 46%,var(--lcars-peach) 46% 69%,#050506 69% 70%,var(--lcars-pink) 70% 83%,#050506 83% 84%,var(--lcars-blue) 84% 100%);pointer-events:none}
-.header{position:relative;border:0;border-bottom:12px solid var(--lcars-peach);border-radius:0 0 0 24px;background:#050506;padding:7px 10px 15px 6px}
+.screen{position:relative;isolation:isolate;background:#050506;gap:12px;padding:18px 15px 18px 27px;border:0;border-left:13px solid var(--lcars-orange);border-radius:0}
+.screen:before{content:"";position:absolute;top:0;left:-13px;width:13px;height:100%;background:linear-gradient(to bottom,var(--lcars-orange) 0 16%,#050506 16% 17%,var(--lcars-blue) 17% 45%,#050506 45% 46%,var(--lcars-orange) 46% 69%,#050506 69% 70%,var(--lcars-pink) 70% 83%,#050506 83% 84%,var(--lcars-blue) 84% 100%);pointer-events:none}
+.header{position:relative;border:0;border-bottom:12px solid var(--lcars-orange);border-radius:0 0 0 24px;background:#050506;padding:7px 10px 15px 6px}
 .header:after{content:"";position:absolute;bottom:-12px;right:0;width:31%;height:12px;background:linear-gradient(to right,var(--lcars-pink) 0 32%,#050506 32% 35%,var(--lcars-blue) 35% 100%);border-radius:10px 0 0 10px}
 .header h1{font-family:"Arial Narrow","Roboto Condensed",system-ui,sans-serif;text-transform:uppercase;letter-spacing:.065em;font-weight:850}.eyebrow{color:var(--lcars-peach)}.clock{color:#f3c18c}.online{color:var(--lcars-blue)}
 .panel,.footer{background:#08090c;border:0;border-radius:0;padding:12px;position:relative;min-width:0}
@@ -17,11 +17,11 @@ body{background:#030304;color:var(--text)}
 .sidebar .panel{padding:10px 8px}.sidebar .head{margin:-10px -8px 10px -8px;padding:8px 6px}.sidebar h2{color:#111015;text-align:left}
 .meal,.event,.stock,.pet,.plant{border-top-color:#34323a}
 .day,.datebox{background:var(--lcars-blue);color:#090a0d;border-radius:12px 0 0 12px;font-weight:800}.today{background:var(--lcars-peach);color:#0d0908}.datebox strong{color:#0d0908}
-.count.teal,.teal,.done{color:#a9c3e0}.count.amber,.amber,.wait,.plant-note{color:#f2b47e}
-.meal.cooked{background:#151318}.meal.cooked .meal-title{text-decoration-color:var(--lcars-peach)}.cooked-badge{color:#efb98f;border-color:#c58d68}
+.count.teal,.teal,.done{color:#99ccff}.count.amber,.amber,.wait,.plant-note{color:#ff9966}
+.meal.cooked{background:#151318}.meal.cooked .meal-title{text-decoration-color:var(--lcars-peach)}.cooked-badge{color:#ffcc99;border-color:#ff9966}
 .pet-photo{border-color:var(--lcars-blue);border-radius:12px;background:#171820}
 .footer{border-top:10px solid var(--lcars-blue);border-bottom:9px solid var(--lcars-peach);border-radius:0 18px 0 18px}.footnote{color:#b6abb4}
-.theme-switch{border:1px solid var(--lcars-blue);color:#f2d4b7;background:#141117;border-radius:14px}.theme-switch:hover,.theme-switch:focus-visible{background:#30242a;outline:2px solid var(--lcars-peach);outline-offset:2px}
+.theme-switch{border:1px solid var(--lcars-blue);color:#ffcc99;background:#141117;border-radius:14px}.theme-switch:hover,.theme-switch:focus-visible{background:#30242a;outline:2px solid var(--lcars-peach);outline-offset:2px}
 .login-card{background:#08090c;border-color:var(--lcars-blue)}.login-card button{background:var(--lcars-peach);color:#0d0b0c}
 @media(max-width:450px){.screen{padding:11px 8px 12px 17px;border-left-width:9px}.screen:before{left:-9px;width:9px}.panel{padding:10px;border-left-width:7px}.head{margin:-10px -10px 10px -10px;padding:7px 9px}.sidebar .panel{padding:8px 5px}.sidebar .head{margin:-8px -5px 8px -5px;padding:7px 5px}.header{padding:6px 3px 13px 4px}}
 @media(min-width:800px){body{padding:20px}.screen{border-top:0;border-right:0;border-bottom:0;border-radius:0}}
@@ -71,3 +71,12 @@ body{background:#030304;color:var(--text)}
  .screen{border-bottom-left-radius:20px}
  .screen:before{border-bottom-left-radius:20px}
 }
+
+/* Steps chart in show colors: Robert pale blue, Rachel mango. */
+#steps-lines polyline[stroke="#73d8c8"]{stroke:#99ccff}
+#steps-lines polyline[stroke="#e2b37b"]{stroke:#ff9966}
+#steps-dots circle[fill="#73d8c8"]{fill:#99ccff}
+#steps-dots circle[fill="#e2b37b"]{fill:#ff9966}
+#steps-labels text[fill="#73d8c8"]{fill:#99ccff}
+#steps-labels text[fill="#e2b37b"]{fill:#ff9966}
+.steps-panel .chart-axis{fill:#ffcc99}
