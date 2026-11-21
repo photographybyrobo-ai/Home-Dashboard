@@ -15,7 +15,7 @@ const OWNER = 'photographybyrobo-ai';
 const REPO = 'Home-Dashboard';
 const GARMIN_BASE = 'https://personal.connectapi.garmin.com';
 const MILES_PER_STEP_FT = 2.375;
-const GOAL = 6000;
+const DEFAULT_GOAL = 6000; // fallback only when Garmin returns no stepGoal
 const DAYS = 8; // today + previous 7 days
 
 function denverDate(d) {
@@ -57,11 +57,13 @@ async function garminSteps(token, start, end) {
   if (!r.ok) throw new Error('Garmin steps fetch failed: ' + r.status);
   const j = await r.json();
   // Response is an array: [{calendarDate, totalSteps, totalDistance, stepGoal, ...}]
+  // stepGoal is the user's daily goal in Garmin Connect, per day.
   const out = {};
   for (const row of (Array.isArray(j) ? j : j.steps || [])) {
     const date = row.calendarDate || row.date;
     const steps = row.totalSteps ?? row.steps;
-    if (date && typeof steps === 'number') out[date] = steps;
+    const goal = typeof row.stepGoal === 'number' ? row.stepGoal : null;
+    if (date && typeof steps === 'number') out[date] = {steps, goal};
   }
   return out;
 }
@@ -114,18 +116,25 @@ module.exports = async function(req, res) {
     for (let i = 0; i < DAYS; i++) {
       const date = addDays(start, i);
       const prev = prevDays[date] || {};
-      const steps = stepsByDate[date];
+      const row = stepsByDate[date];
+      const steps = row ? row.steps : undefined;
       const robert = typeof steps === 'number' ? steps : (prev.Robert ?? null);
+      // Goal comes from Garmin's stepGoal for that day; fall back to the
+      // previously stored goal, then to 6000 if Garmin never sent one.
+      const goal = (row && typeof row.goal === 'number') ? row.goal
+        : (typeof prev.goal === 'number' ? prev.goal : DEFAULT_GOAL);
       days.push({
         date,
         Robert: robert,
         Rachel: prev.Rachel ?? null,
+        goal,
         miles: {Robert: typeof robert === 'number' ? miles(robert) : null, Rachel: (prev.miles && prev.miles.Rachel) ?? null},
       });
     }
+    const todayGoal = (days[days.length - 1] && days[days.length - 1].goal) || DEFAULT_GOAL;
     const data = {
       days,
-      goals: {Robert: GOAL, Rachel: 8000},
+      goals: {Robert: todayGoal, Rachel: 8000},
       milesPerStepFt: {Robert: 2.375, Rachel: 2.134},
       source: 'Garmin Connect Personal API (no AI, no spreadsheet)',
       today,
