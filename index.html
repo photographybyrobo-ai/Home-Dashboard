@@ -329,9 +329,10 @@ async function syncStepsNow(){
  if(stepsSyncing)return;stepsSyncing=true;
  const btn=document.querySelector('#steps-sync-btn');const overlay=document.querySelector('#steps-sync-overlay');const text=document.querySelector('#steps-sync-text');const sub=document.querySelector('#steps-sync-sub');const note=document.querySelector('#steps-sync-note');
  const before=(await fetchStepsData())||{};const beforeAt=before.updatedAt||null;
- if(btn)btn.disabled=true;if(overlay)overlay.hidden=false;if(text)text.textContent='Updating activity tracker…';if(sub)sub.textContent='Pulling your latest steps from Garmin.';
+ if(btn)btn.disabled=true;if(overlay)overlay.hidden=false;if(text)text.textContent='Updating activity tracker…';if(sub)sub.textContent='Pulling your latest steps from Garmin and Oura.';
  try{
   const r=await fetch('/api/steps-sync',{credentials:'same-origin',cache:'no-store'});if(!r.ok)throw new Error('Sync failed');
+  try{await fetch('/api/oura-sync',{credentials:'same-origin',cache:'no-store'});}catch(e){/* Oura not set up yet — Garmin sync still counts */}
   let fresh=false;
   for(let i=0;i<30;i++){
    await new Promise(res=>setTimeout(res,10000));

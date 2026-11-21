@@ -136,7 +136,7 @@ module.exports = async function(req, res) {
       days,
       goals: {Robert: todayGoal, Rachel: 8000},
       milesPerStepFt: {Robert: 2.375, Rachel: 2.134},
-      source: 'Garmin Connect Personal API (no AI, no spreadsheet)',
+      source: 'Garmin Connect + Oura API (no AI, no spreadsheet)',
       today,
       updatedAt: new Date().toISOString(),
     };
