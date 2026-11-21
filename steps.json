@@ -72,17 +72,17 @@
     },
     {
       "date": "2026-11-21",
-      "Robert": null,
+      "Robert": 3364,
       "Rachel": null,
-      "goal": 3720,
+      "goal": 3850,
       "miles": {
-        "Robert": null,
+        "Robert": 1.51,
         "Rachel": null
       }
     }
   ],
   "goals": {
-    "Robert": 3720,
+    "Robert": 3850,
     "Rachel": 11431
   },
   "milesPerStepFt": {
@@ -91,5 +91,5 @@
   },
   "source": "Garmin Connect + Oura API (no AI, no spreadsheet)",
   "today": "2026-11-21",
-  "updatedAt": "2026-11-21T19:34:37.041Z"
+  "updatedAt": "2026-11-21T19:35:17.680Z"
 }
