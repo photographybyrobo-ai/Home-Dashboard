@@ -3,71 +3,71 @@
     {
       "date": "2026-11-13",
       "Robert": 2835,
-      "Rachel": null,
+      "Rachel": 9824,
       "goal": 3940,
       "miles": {
         "Robert": 1.28,
-        "Rachel": null
+        "Rachel": 3.97
       }
     },
     {
       "date": "2026-11-14",
       "Robert": null,
-      "Rachel": null,
+      "Rachel": 8461,
       "goal": 6000,
       "miles": {
         "Robert": null,
-        "Rachel": null
+        "Rachel": 3.42
       }
     },
     {
       "date": "2026-11-15",
       "Robert": 10797,
-      "Rachel": null,
+      "Rachel": 9995,
       "goal": 3720,
       "miles": {
         "Robert": 4.86,
-        "Rachel": null
+        "Rachel": 4.04
       }
     },
     {
       "date": "2026-11-16",
       "Robert": 3565,
-      "Rachel": null,
+      "Rachel": 7615,
       "goal": 4430,
       "miles": {
         "Robert": 1.6,
-        "Rachel": null
+        "Rachel": 3.08
       }
     },
     {
       "date": "2026-11-17",
       "Robert": 5636,
-      "Rachel": null,
+      "Rachel": 14052,
       "goal": 4350,
       "miles": {
         "Robert": 2.54,
-        "Rachel": null
+        "Rachel": 5.68
       }
     },
     {
       "date": "2026-11-18",
       "Robert": 5541,
-      "Rachel": null,
+      "Rachel": 16426,
       "goal": 4480,
       "miles": {
         "Robert": 2.49,
-        "Rachel": null
+        "Rachel": 6.64
       }
     },
     {
       "date": "2026-11-19",
       "Robert": 4248,
-      "Rachel": null,
+      "Rachel": 15423,
       "goal": 4700,
       "miles": {
         "Robert": 1.91,
-        "Rachel": null
+        "Rachel": 6.23
       }
     },
     {
@@ -91,5 +91,5 @@
   },
   "source": "Garmin Connect + Oura API (no AI, no spreadsheet)",
   "today": "2026-11-20",
-  "updatedAt": "2026-11-21T04:52:45.414Z"
+  "updatedAt": "2026-11-21T05:21:55.587Z"
 }
