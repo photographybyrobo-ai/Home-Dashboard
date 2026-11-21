@@ -106,6 +106,25 @@ body .screen>.theme-drawer[open] .theme-drawer-toggle{border-radius:7px}
 #events .event .event-title{font-size:12px;font-weight:700;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
 #events .event .event-time{margin-top:auto;padding-top:7px;font-size:11px;line-height:1.25}
 @media(max-width:450px){#events:has(.event){gap:5px}#events .event{padding:8px 6px}#events .event .datebox{font-size:9px;margin-bottom:6px;letter-spacing:0}#events .event .event-title{font-size:11px}#events .event .event-time{font-size:10px;padding-top:6px}}
+
+.steps-panel{position:relative}
+.steps-sync-btn{border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--teal);font:inherit;font-size:11px;font-weight:700;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.steps-sync-btn:disabled{opacity:.55;cursor:default}
+.steps-sync-overlay{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(7,19,22,.88);border-radius:12px;padding:16px;text-align:center}
+.steps-sync-overlay[hidden]{display:none}
+.steps-sync-text{font-weight:800;font-size:14px;margin-top:12px}
+.steps-sync-sub{font-size:12px;margin-top:4px}
+.steps-sync-note{font-size:11px;text-align:center;margin-top:8px;min-height:14px}
+.steps-sync-anim{display:grid;place-items:center;min-height:64px}
+.sync-lcars{display:none!important}
+.sync-black{display:none}
+html[data-dashboard-theme="lcars"] .sync-lcars{display:flex!important;width:180px;max-width:220px}
+html[data-dashboard-theme="black-alert"] .sync-black{display:block;position:relative;width:64px;height:64px}
+.sync-black .sync-ring{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(from -10deg,rgba(92,207,238,.78) 0deg 1.4deg,transparent 1.4deg 17deg);-webkit-mask:radial-gradient(transparent 0 40%,#000 41% 43%,transparent 44% 56%,#000 57% 60%,transparent 61%);mask:radial-gradient(transparent 0 40%,#000 41% 43%,transparent 44% 56%,#000 57% 60%,transparent 61%);animation:steps-sync-spin 2s linear infinite}
+.sync-black .sync-beacon{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border:1px solid rgba(107,204,232,.65);border-radius:50%;background:radial-gradient(circle,rgba(92,203,232,.7) 0 2px,transparent 3px);animation:steps-sync-beacon 1.5s ease-in-out infinite}
+@keyframes steps-sync-spin{to{transform:rotate(360deg)}}
+@keyframes steps-sync-beacon{0%,100%{opacity:.38}50%{opacity:.8}}
+@media(prefers-reduced-motion:reduce){.sync-black .sync-ring,.sync-black .sync-beacon{animation:none}}
 </style><link id="lcars-stylesheet" rel="stylesheet" href="/lcars.css" disabled><link id="black-alert-stylesheet" rel="stylesheet" href="/black-alert.css" disabled></head><body><div id="gate" class="gate"><form id="login-form" class="login-card"><div class="eyebrow">HOUSEHOLD HUB / PRIVATE</div><h1>Welcome home.</h1><p class="muted">Enter your household password to see the dashboard.</p><label for="password">Household password</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">Unlock dashboard</button><p id="login-error" role="alert" class="muted"></p></form></div><div class="screen" id="dashboard" hidden>
 <details class="theme-drawer"><summary class="theme-drawer-toggle" aria-label="Open utility menu" title="Utility menu">⚙</summary><div class="theme-controls theme-drawer-content" role="group" aria-label="Dashboard appearance"><span class="theme-label">DISPLAY THEME</span><button type="button" class="theme-switch" data-theme="lcars" aria-pressed="false">Engage LCARS</button><button type="button" class="theme-switch" data-theme="black-alert" aria-pressed="false">Black Alert</button></div></details>
 <header class="header"><div class="tardis-console-art" aria-hidden="true"><div class="tardis-rotor"><span></span><span></span><span></span></div><div class="tardis-hex-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tardis-console-deck"><b></b><b></b><b></b><b></b><b></b><b></b></div></div><div><div class="eyebrow">HOUSEHOLD / COMMAND CENTER</div><h1>Home Overview</h1><div class="muted" id="today-date"></div></div><div class="clock-console"><div class="lcars-clock-caption" aria-hidden="true">CHRONOMETRIC DATA <span>01 / ACTIVE</span></div><div class="clock" id="clock"></div><div class="lcars-clock-progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="online">● SYSTEM ONLINE</div></div></header>
@@ -113,7 +132,7 @@ body .screen>.theme-drawer[open] .theme-drawer-toggle{border-radius:7px}
 <section class="panel weather-panel" aria-label="Ten-day weather forecast"><div class="head"><h2>☁ Weather Forecast</h2><span class="kicker" id="weather-status">LIVE · 10-DAY OUTLOOK</span></div><div class="weather-settings"><form id="weather-zip-form"><label for="weather-zip">Forecast ZIP code</label><input id="weather-zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" required aria-label="US ZIP code"><button type="submit">Change location</button><button type="button" id="weather-denver-reset" aria-label="Switch weather back to Denver">Denver</button></form><span id="weather-location" class="muted"></span></div><div class="weather-current" id="weather-current" aria-live="polite">Loading weather…</div><div class="weather-days" id="weather-days"></div><div class="weather-disclaimer" id="weather-updated">Forecast: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · Location: Zippopotam.us</div></section>
 <div class="layout plants-relocated"><main class="main">
 <section class="panel"><div class="head"><h2>◈ Meal Plan</h2><span class="kicker">MEAL ALCHEMY</span></div><div id="meals"></div></section>
-<section class="panel"><div class="head"><h2>⌁ Daily Activity</h2><span class="kicker">7-DAY STEPS</span></div><div class="numbers"><div><div class="person">ROBO</div><div class="count teal" id="steps-robert">2,326</div><div class="muted">of 6,000 goal</div></div><div><div class="person">RACHEL</div><div class="count amber" id="steps-rachel">—</div><div class="muted" id="steps-rachel-note">No steps logged yet · of 8,000 goal</div></div></div><svg class="chart" viewBox="0 0 360 168" role="img" aria-label="Seven-day steps for Robo and Rachel"><g stroke="#355054" stroke-width="1" stroke-dasharray="3 5"><path d="M30 18H351 M30 52H351 M30 86H351 M30 120H351"/></g><g fill="#8eaaa6" font-size="10"><text x="23" y="21" text-anchor="end">9k</text><text x="23" y="55" text-anchor="end">6k</text><text x="23" y="89" text-anchor="end">3k</text><text x="23" y="123" text-anchor="end">0</text><text x="35" y="146" text-anchor="middle" class="activity-date" data-day-offset="-6">M</text><text x="86" y="146" text-anchor="middle" class="activity-date" data-day-offset="-5">T</text><text x="137" y="146" text-anchor="middle" class="activity-date" data-day-offset="-4">W</text><text x="188" y="146" text-anchor="middle" class="activity-date" data-day-offset="-3">T</text><text x="239" y="146" text-anchor="middle" class="activity-date" data-day-offset="-2">F</text><text x="290" y="146" text-anchor="middle" class="activity-date" data-day-offset="-1">S</text><text x="341" y="146" text-anchor="middle" class="activity-date" data-day-offset="0">S</text></g><g id="steps-lines"></g><g id="steps-dots"><circle cx="341" cy="94" r="4" fill="#73d8c8"/></g><g id="steps-labels"><text x="341" y="84" text-anchor="middle" font-size="9" fill="#73d8c8" font-weight="700">1.05 mi</text></g></svg><div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Robo</span><span><i class="dot" style="background:var(--amber)"></i>Rachel</span></div></section>
+<section class="panel steps-panel" id="steps-panel"><div class="head"><h2>⌁ Daily Activity</h2><span class="kicker">7-DAY STEPS</span><button type="button" id="steps-sync-btn" class="steps-sync-btn">Sync now</button></div><div class="steps-sync-overlay" id="steps-sync-overlay" hidden><div class="steps-sync-card"><div class="steps-sync-anim" aria-hidden="true"><div class="lcars-clock-progress sync-lcars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="sync-black"><div class="sync-ring"></div><div class="sync-beacon"></div></div></div><div class="steps-sync-text" id="steps-sync-text">Updating activity tracker…</div><div class="muted steps-sync-sub" id="steps-sync-sub">Pulling your latest steps from Garmin.</div></div></div><div class="numbers"><div><div class="person">ROBO</div><div class="count teal" id="steps-robert">2,326</div><div class="muted">of 6,000 goal</div></div><div><div class="person">RACHEL</div><div class="count amber" id="steps-rachel">—</div><div class="muted" id="steps-rachel-note">No steps logged yet · of 8,000 goal</div></div></div><svg class="chart" viewBox="0 0 360 168" role="img" aria-label="Seven-day steps for Robo and Rachel"><g stroke="#355054" stroke-width="1" stroke-dasharray="3 5"><path d="M30 18H351 M30 52H351 M30 86H351 M30 120H351"/></g><g fill="#8eaaa6" font-size="10"><text x="23" y="21" text-anchor="end">9k</text><text x="23" y="55" text-anchor="end">6k</text><text x="23" y="89" text-anchor="end">3k</text><text x="23" y="123" text-anchor="end">0</text><text x="35" y="146" text-anchor="middle" class="activity-date" data-day-offset="-6">M</text><text x="86" y="146" text-anchor="middle" class="activity-date" data-day-offset="-5">T</text><text x="137" y="146" text-anchor="middle" class="activity-date" data-day-offset="-4">W</text><text x="188" y="146" text-anchor="middle" class="activity-date" data-day-offset="-3">T</text><text x="239" y="146" text-anchor="middle" class="activity-date" data-day-offset="-2">F</text><text x="290" y="146" text-anchor="middle" class="activity-date" data-day-offset="-1">S</text><text x="341" y="146" text-anchor="middle" class="activity-date" data-day-offset="0">S</text></g><g id="steps-lines"></g><g id="steps-dots"><circle cx="341" cy="94" r="4" fill="#73d8c8"/></g><g id="steps-labels"><text x="341" y="84" text-anchor="middle" font-size="9" fill="#73d8c8" font-weight="700">1.05 mi</text></g></svg><div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Robo</span><span><i class="dot" style="background:var(--amber)"></i>Rachel</span></div><div class="muted steps-sync-note" id="steps-sync-note"></div></section>
 </main></div><div class="full-width-sections"><section class="panel"><div class="head"><h2>▦ Calendar Preview</h2><span class="kicker">UPCOMING</span></div><div id="events"></div></section>
 <section class="panel"><div class="head"><h2>▤ Pantry Alerts</h2><span class="kicker">LOW / OUT ONLY</span></div><div id="pantry"></div></section>
 </div>
@@ -244,6 +263,37 @@ async function loadSteps(){
     });
   }catch(e){}
 }
+
+let stepsSyncing=false;
+async function fetchStepsData(){try{const r=await fetch('/api/steps',{credentials:'same-origin',cache:'no-store'});if(r.ok)return await r.json();}catch(e){}try{const r=await fetch('/steps.json',{cache:'no-store'});if(r.ok)return await r.json();}catch(e){}return null;}
+async function syncStepsNow(){
+ if(stepsSyncing)return;stepsSyncing=true;
+ const btn=document.querySelector('#steps-sync-btn');const overlay=document.querySelector('#steps-sync-overlay');const text=document.querySelector('#steps-sync-text');const sub=document.querySelector('#steps-sync-sub');const note=document.querySelector('#steps-sync-note');
+ const before=(await fetchStepsData())||{};const beforeAt=before.updatedAt||null;
+ if(btn)btn.disabled=true;if(overlay)overlay.hidden=false;if(text)text.textContent='Updating activity tracker…';if(sub)sub.textContent='Pulling your latest steps from Garmin.';
+ try{
+  const r=await fetch('/api/steps-sync',{credentials:'same-origin',cache:'no-store'});if(!r.ok)throw new Error('Sync failed');
+  let fresh=false;
+  for(let i=0;i<30;i++){
+   await new Promise(res=>setTimeout(res,10000));
+   const d=await fetchStepsData();
+   if(d&&d.updatedAt&&d.updatedAt!==beforeAt){fresh=true;break;}
+   if(sub&&i>=2)sub.textContent='Sync saved — waiting for the dashboard to catch up…';
+  }
+  await loadSteps();
+  if(note)note.textContent=fresh?('Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})):'Sync ran — new numbers may take a few minutes to appear.';
+  if(text)text.textContent=fresh?'Activity updated':'Sync finished';
+  if(sub)sub.textContent=fresh?'Your latest steps are in.':'The sync saved — the numbers will catch up shortly.';
+  await new Promise(res=>setTimeout(res,1400));
+ }catch(e){
+  if(text)text.textContent='Sync didn\u2019t finish';if(sub)sub.textContent='Try again in a moment.';
+  if(note)note.textContent='Sync didn\u2019t finish — try again.';
+  await new Promise(res=>setTimeout(res,2500));
+ }finally{
+  if(overlay)overlay.hidden=true;if(btn)btn.disabled=false;stepsSyncing=false;
+ }
+}
+document.querySelector('#steps-sync-btn')?.addEventListener('click',syncStepsNow);
 async function showDashboard(){document.querySelector('#gate').hidden=true;document.querySelector('#dashboard').hidden=false;await Promise.all([loadMeals(),loadCalendar(),loadCollection(),loadSteps()]);}
 document.querySelector('#login-form').addEventListener('submit',async e=>{e.preventDefault();const error=document.querySelector('#login-error');error.textContent='';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});const d=await r.json();if(!r.ok)throw Error(d.error||'Unable to sign in');document.querySelector('#password').value='';await showDashboard();}catch(e){error.textContent=e.message;}});
 fetch('/api/login',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.authenticated)showDashboard();}).catch(()=>{});
