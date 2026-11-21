@@ -190,8 +190,11 @@ module.exports = async function(req, res) {
       // previously stored goal for that date, then to the last known goal
       // from an earlier day (so a brand-new today is not 6000 just because
       // Garmin has not set today's auto goal yet), then to 6000.
+      // A stored 6000 is the old fallback, not a real Garmin goal, so it
+      // must not win over the last known goal.
+      const storedGoal = (typeof prev.goal === 'number' && prev.goal !== DEFAULT_GOAL) ? prev.goal : null;
       const goal = (row && typeof row.goal === 'number') ? row.goal
-        : (typeof prev.goal === 'number' ? prev.goal : (lastGoal ?? DEFAULT_GOAL));
+        : (storedGoal ?? lastGoal ?? DEFAULT_GOAL);
       if (typeof goal === 'number') lastGoal = goal;
       days.push({
         date,
