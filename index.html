@@ -14,7 +14,7 @@ html{font-size:14px}
 .pet-care-panel{width:100%;min-width:0}.pet-care-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.pet-care-card{min-width:0;padding:10px;border:1px solid var(--border);border-radius:10px;background:rgba(125,170,180,.06)}.pet-care-card .pet-photo{width:74px;height:74px;max-width:100%;margin:0 auto 7px}.pet-care-card .pet-name{font-size:0.929rem;margin-bottom:9px}.pet-care-detail{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--border);padding:7px 0;font-size:0.714rem}.pet-care-detail span:last-child{color:var(--muted);font-size:0.714rem}.pet-care-detail:last-child{padding-bottom:0}@media(max-width:450px){.pet-care-grid{gap:5px}.pet-care-card{padding:7px 4px}.pet-care-card .pet-photo{width:54px;height:54px}.pet-care-card .pet-name{font-size:0.786rem}.pet-care-detail{font-size:0.643rem}.pet-care-detail span:last-child{font-size:0.643rem}}
 .tardis-console-art{display:none}.plants-relocated{grid-template-columns:minmax(0,1fr)}.plants-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.plants-grid .plant{border-top:1px solid var(--border);padding:10px}.plants-grid .plant-name{font-size:0.929rem;margin-bottom:5px}@media(max-width:450px){.plants-grid{gap:6px}.plants-grid .plant{padding:7px}.plants-grid .plant-name{font-size:0.786rem}}.cooking-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.8);display:grid;place-items:center;padding:16px}.cooking-card{width:min(100%,780px);max-height:90vh;overflow:auto;background:var(--panel);color:var(--text);border:2px solid var(--border);border-radius:14px;padding:24px}.cooking-card h2{font-size:1.714rem}.cooking-card h3{color:var(--teal);margin-top:24px}.cooking-card li{margin:10px 0;line-height:1.5;font-size:1.143rem}.cooking-trigger{border:0;background:transparent;color:var(--text);text-align:left;cursor:pointer;font:inherit;padding:6px}.cooking-trigger:not(:disabled){text-decoration:underline;text-underline-offset:3px}.cooking-trigger:disabled{opacity:.7;cursor:default}.cooking-close{background:var(--teal);color:var(--bg);border:0;border-radius:7px;padding:10px 16px;cursor:pointer;font-weight:bold}
 /* Shared collapsible panels; all theme styles remain in control of colors. */
-.panel.collapsible>.head{flex-wrap:wrap}.panel-toggle{display:flex;align-items:center;gap:8px;min-width:0;flex:1;text-align:left;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;padding:5px 0}.panel-toggle h2{margin:0}.panel-toggle:focus-visible{outline:2px solid var(--teal);outline-offset:3px}.panel-chevron{color:var(--teal);font-size:0.929rem}.panel-summary{display:none;width:100%;font-size:0.857rem;color:var(--muted);line-height:1.4;overflow-wrap:anywhere}.panel.collapsed>.head{margin-bottom:0}.panel.collapsed>.head .kicker{display:none}.panel.collapsed .panel-summary{display:block}.panel.collapsed>.panel-body{display:none!important}
+.panel.collapsible>.head{flex-wrap:wrap}.panel-toggle{display:flex;align-items:center;gap:8px;min-width:0;flex:1;text-align:left;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;padding:5px 0}.panel-toggle h2{margin:0}.panel-toggle:focus-visible{outline:2px solid var(--teal);outline-offset:3px}.panel-chevron{color:var(--teal);font-size:0.929rem}.panel.collapsed>.head{margin-bottom:0}.panel.collapsed>.head .kicker{display:none}.panel.collapsed>.panel-body{display:none!important}
 .screen{position:relative}.theme-controls-top{position:absolute;top:4px;right:12px;z-index:5;justify-content:flex-end;padding:0 4px;gap:4px}.theme-controls-top .theme-label{display:none}.theme-controls-top .theme-switch{font-size:0.714rem;padding:4px 7px;background:var(--panel)}.theme-controls-top .theme-switch{margin:0}.theme-label{font-size:0.714rem;letter-spacing:.12em;font-weight:800;color:var(--muted);margin-right:4px}@media(max-width:450px){.theme-controls-top{justify-content:flex-end;right:8px;top:4px}.header{padding-top:30px}}
 
 /* Responsive dashboard: portrait, tablet and desktop. Shared by both themes. */
@@ -509,24 +509,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document
 setInterval(()=>{if(!document.getElementById('dashboard').hidden)loadCalendar();},15*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document.getElementById('dashboard').hidden)loadCalendar();});
 
-// Compact summaries use the currently rendered information, not a second data source.
 (function initCollapsiblePanels(){
  const panels=[...document.querySelectorAll('#dashboard section.panel')];
  const labels=['weather','meals','activity','calendar','pantry','collection','pets','plants'];
- function summary(key){
-  const text=(sel)=>document.querySelector(sel)?.textContent?.trim().replace(/\s+/g,' ').slice(0,110)||'';
-  switch(key){
-   case 'weather':return text('#weather-location')+' · '+text('#weather-current');
-   case 'meals':return text('#meals .meal-title')||text('#meals')||'No meals available';
-   case 'activity':{const r=text('#steps-robert');const a=text('#steps-rachel');return 'Robo: '+r+' steps · Rachel: '+(a==='—'?'no steps logged yet':a+' steps');}
-   case 'calendar':return text('#events .event')||'No upcoming events';
-   case 'pantry':return text('#pantry .stock')||'No pantry alerts';
-   case 'collection':return text('.collection-content')||'Schedule unavailable';
-   case 'pets':return text('#pets .pet-care-card')||'No pet care updates';
-   case 'plants':return text('.plants-grid .plant')||'No plant care updates';
-   default:return '';
-  }
- }
  panels.forEach((panel,i)=>{
   const key=labels[i]||'section-'+i,head=panel.querySelector(':scope > .head');if(!head)return;
   const body=document.createElement('div');body.className='panel-body';
@@ -534,13 +519,11 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document
   const h=head.querySelector('h2');if(!h)return;
   const button=document.createElement('button');button.type='button';button.className='panel-toggle';button.setAttribute('aria-label','Toggle '+h.textContent.trim());
   const arrow=document.createElement('span');arrow.className='panel-chevron';arrow.setAttribute('aria-hidden','true');button.append(arrow);button.append(h);head.prepend(button);
-  const line=document.createElement('div');line.className='panel-summary';line.setAttribute('aria-live','polite');head.append(line);
   body.id='panel-body-'+key;button.setAttribute('aria-controls',body.id);
-  function render(){const collapsed=panel.classList.contains('collapsed');body.hidden=collapsed;button.setAttribute('aria-expanded',String(!collapsed));arrow.textContent=collapsed?'▸':'▾';line.textContent=summary(key);}
+  function render(){const collapsed=panel.classList.contains('collapsed');body.hidden=collapsed;button.setAttribute('aria-expanded',String(!collapsed));arrow.textContent=collapsed?'▸':'▾';}
   let saved=false;try{saved=localStorage.getItem('hub-panel-'+key)==='collapsed';}catch(e){}
   if(saved)panel.classList.add('collapsed');render();
   button.addEventListener('click',()=>{panel.classList.toggle('collapsed');try{localStorage.setItem('hub-panel-'+key,panel.classList.contains('collapsed')?'collapsed':'expanded');}catch(e){}render();});
-  const observer=new MutationObserver(()=>{if(panel.classList.contains('collapsed'))line.textContent=summary(key);});observer.observe(body,{subtree:true,childList:true,characterData:true});
  });
 })();
 </script></body></html>
