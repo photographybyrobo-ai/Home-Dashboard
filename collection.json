@@ -2,14 +2,15 @@
   "nextPickup": "Mon, Nov 16, 2026",
   "items": [
     "Trash",
-    "Compost"
+    "Compost",
+    "Recycling"
   ],
   "trash": true,
   "compost": true,
-  "recycling": false,
-  "recyclingPickup": false,
-  "summary": "Trash + Compost \u2014 No Recycling",
+  "recycling": true,
+  "recyclingPickup": true,
+  "summary": "Trash + Compost + Recycling",
   "subject": "Collection day is tomorrow | Thanksgiving Holiday Service changes",
-  "updatedAt": "2026-11-20T19:10:35.215Z",
+  "updatedAt": "2026-11-23T18:09:02.376Z",
   "address": "4354 N Columbine St, Denver"
 }
