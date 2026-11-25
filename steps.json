@@ -1,16 +1,6 @@
 {
   "days": [
     {
-      "date": "2026-11-17",
-      "Robert": 5636,
-      "Rachel": 14052,
-      "goal": 4350,
-      "miles": {
-        "Robert": 2.54,
-        "Rachel": 5.68
-      }
-    },
-    {
       "date": "2026-11-18",
       "Robert": 5541,
       "Rachel": 16426,
@@ -72,24 +62,34 @@
     },
     {
       "date": "2026-11-24",
-      "Robert": 19347,
+      "Robert": 20584,
+      "Rachel": 17833,
+      "goal": 6520,
+      "miles": {
+        "Robert": 9.26,
+        "Rachel": 7.21
+      }
+    },
+    {
+      "date": "2026-11-25",
+      "Robert": null,
       "Rachel": null,
       "goal": 6520,
       "miles": {
-        "Robert": 8.7,
+        "Robert": null,
         "Rachel": null
       }
     }
   ],
   "goals": {
     "Robert": 6520,
-    "Rachel": 11740
+    "Rachel": 12280
   },
   "milesPerStepFt": {
     "Robert": 2.375,
     "Rachel": 2.134
   },
   "source": "Garmin Connect + Oura API (no AI, no spreadsheet)",
-  "today": "2026-11-24",
-  "updatedAt": "2026-11-24T21:33:23.133Z"
+  "today": "2026-11-25",
+  "updatedAt": "2026-11-25T08:50:59.368Z"
 }
